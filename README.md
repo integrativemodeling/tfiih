@@ -5,7 +5,9 @@
 
 These scripts demonstrate the use of IMP and PMI in the modeling of the TFIIH complex using chemical cross-links and an electron microscopy (EM) density maps.
 
-The scripts work with the attached version of IMP and PMI ("imp-21Oct13"). We are also making sure that they will also work with the latest version of IMP.
+For the publication, the following versions of IMP and PMI were used:
+- IMP: git develop branch, git hash [c93138f](https://github.com/salilab/imp/tree/c93138f863070db03646bfb110b61e2547332b40)
+- PMI: git develop branch, git hash [c522e0a](https://github.com/salilab/pmi/tree/c522e0abc690afc49d33d34dded70d84ad4ec3a7)
 
 
 ### --- List of files and directories:
