@@ -55,7 +55,7 @@ distance matrix produces the actual clusters.
 
 ## Information
 
-_Author(s)_: Peter Cimermancic, Shruthi Viswanath, Riccardo Pellarin, Charles Greenberg
+_Author(s)_: Peter Cimermančič, Shruthi Viswanath, Riccardo Pellarin, Charles Greenberg
 
 _Date_: October 6th, 2014
 
