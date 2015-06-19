@@ -157,7 +157,7 @@ simo.set_floppy_bodies_max_trans(fbmaxtrans)
 
 
 #re-orient initial positions
-simo.shuffle_configuration(translate=False)
+#simo.shuffle_configuration(translate=False)
 
 
 prot=simo.get_hierarchy()
