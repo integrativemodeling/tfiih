@@ -47,7 +47,7 @@ map_tfb = IMP.em.read_map('tfb.mrc', IMP.em.MRCReaderWriter())
 #####################################################
 
 m=IMP.Model()
-simo=representation.SimplifiedModel(m, upperharmonic=False, disorderedlength=True)
+simo=representation.Representation(m, upperharmonic=False, disorderedlength=True)
 
 
 
@@ -56,54 +56,54 @@ activated_components=[1,2,3,4]
 
 if 1 in activated_components:
   
-  simo.add_component_name("ccl1")
+  simo.create_component("ccl1")
   simo.add_pdb_and_intervening_beads("ccl1",'../inputs/CCL1_48-393.pdb',"A",resolutions=[1,30],resrange=(1,393),beadsize=30,color=1.0,attachbeads=True)
   simo.setup_component_sequence_connectivity("ccl1", resolution=30)
 
-  simo.add_component_name("kin28")
+  simo.create_component("kin28")
   simo.add_pdb_and_intervening_beads("kin28",'../inputs/KIN28_5-299.pdb',"A",resolutions=[1,30],resrange=(1,306), beadsize=30,color=0.9,attachbeads=True)
   simo.setup_component_sequence_connectivity("kin28", resolution=30)
 
-  simo.add_component_name("tfb3")
+  simo.create_component("tfb3")
   simo.add_pdb_and_intervening_beads("tfb3",'../inputs/TFB3_8-142.pdb',"A",resolutions=[1,30],resrange=(1,321), beadsize=30,color=0.8,attachbeads=True)
   simo.setup_component_sequence_connectivity("tfb3", resolution=30)
 
 
 if 2 in activated_components:
 
-  simo.add_component_name("rad3")
+  simo.create_component("rad3")
   simo.add_pdb_and_intervening_beads("rad3",'../inputs/RAD3_14-725.pdb',"A",resolutions=[1,30],resrange=(1,778), beadsize=30,color=150./360,attachbeads=True)
   simo.setup_component_sequence_connectivity("rad3", resolution=30)
 
 
 if 4 in activated_components:
 
-  simo.add_component_name("tfb1")
+  simo.create_component("tfb1")
   simo.add_pdb_and_intervening_beads("tfb1",'../inputs/TFB1_2-115.pdb',"A",resolutions=[1,30],resrange=(1,642), beadsize=30,color=60./360,attachbeads=True)
   simo.setup_component_sequence_connectivity("tfb1", resolution=30)
 
-  simo.add_component_name("tfb2")
+  simo.create_component("tfb2")
   simo.add_pdb_and_intervening_beads("tfb2",'../inputs/TFB2_1-168.pdb',"A",resolutions=[1,30],resrange=(1,170), beadsize=30,color=185./360,attachbeads=True)
   simo.add_pdb_and_intervening_beads("tfb2",'../inputs/TFB2_186-417.pdb',"A",resolutions=[1,30],resrange=(171,417), beadsize=30,color=185./360,attachbeads=True)
   simo.add_pdb_and_intervening_beads("tfb2",'../inputs/TFB2_392-513.pdb',"A",resolutions=[1,30],resrange=(418,513), beadsize=30,color=185./360,attachbeads=True)
   simo.setup_component_sequence_connectivity("tfb2", resolution=30)
 
-  simo.add_component_name("tfb4")
+  simo.create_component("tfb4")
   simo.add_pdb_and_intervening_beads("tfb4",'../inputs/TFB4_24-250.pdb',"A",resolutions=[1,30],resrange=(1,338), beadsize=30,color=210./360,attachbeads=True)
   simo.setup_component_sequence_connectivity("tfb4", resolution=30)
 
-  simo.add_component_name("tfb5")
+  simo.create_component("tfb5")
   simo.add_pdb_and_intervening_beads("tfb5",'../inputs/TFB5.pdb',"B",resolutions=[1,30],resrange=(1,72), beadsize=30,color=0.,attachbeads=True)
   simo.setup_component_sequence_connectivity("tfb5", resolution=30)
 
-  simo.add_component_name("ssl1")
+  simo.create_component("ssl1")
   simo.add_pdb_and_intervening_beads("ssl1",'../inputs/SSL1_123-302.pdb',"A",resolutions=[1,30],resrange=(1,302), beadsize=30,color=285./360,attachbeads=True)
   simo.add_pdb_and_intervening_beads("ssl1",'../inputs/SSL1_386-455.pdb',"A",resolutions=[1,30],resrange=(303,461), beadsize=30,color=285./360,attachbeads=True)
   simo.setup_component_sequence_connectivity("ssl1", resolution=30)
 
 
 if 3 in activated_components:
-  simo.add_component_name("ssl2")
+  simo.create_component("ssl2")
   #simo.add_pdb_and_intervening_beads("ssl2",'fit_gtfs_3.pdb',"C",resolutions=[1,30],resrange=(1,538), beadsize=30,color=0.0,attachbeads=True)
   #simo.add_pdb_and_intervening_beads("ssl2",'fit_gtfs_3.pdb',"D",resolutions=[1,30],resrange=(539,843), beadsize=30,color=0.0,attachbeads=True)
   simo.add_pdb_and_intervening_beads("ssl2",'../inputs/SSL2_316-723.pdb',"A",resolutions=[1,30],resrange=(1,843), beadsize=30,color=0.0,attachbeads=True)
