@@ -19,6 +19,8 @@ from math import cos
 from math import sqrt
 
 import IMP.pmi.restraints as restraints
+import IMP.pmi.restraints.stereochemistry
+import IMP.pmi.restraints.crosslinking
 import IMP.pmi.representation as representation
 import IMP.pmi.tools as tools
 import IMP.pmi.samplers as samplers
@@ -160,7 +162,6 @@ simo.set_floppy_bodies_max_trans(fbmaxtrans)
 #simo.shuffle_configuration(translate=False)
 
 
-prot=simo.get_hierarchy()
 outputobjects.append(simo)
 sampleobjects.append(simo)
 
@@ -172,14 +173,14 @@ sampleobjects.append(simo)
 #####################################################
 
 #EV restraint
-ev=restraints.ExcludedVolumeSphere(prot, resolution=30)
+ev=restraints.stereochemistry.ExcludedVolumeSphere(simo, resolution=30)
 ev.add_to_model()
 outputobjects.append(ev)
 
 
 #cross-link restraint
-xl=restraints.SigmoidCrossLinkMS(prot,\
-                             '../inputs/Ranish_Kornberg_thiih_xlinks.txt', \
+xl=restraints.crosslinking.SigmoidalCrossLinkMS(simo,
+                             '../inputs/Ranish_Kornberg_thiih_xlinks.txt',
                              inflection=25.0,slope=5.0,amplitude=25.0,linear_slope=0.05,resolution=1)
 xl.add_to_model()
 outputobjects.append(xl)
@@ -210,7 +211,7 @@ Tfiie = [1, 3, 15, 31, 52, 71, 97, 101, 105, 128, 132, 135, 141, 147, 151, 159, 
          184, 188, 194, 197, 198, 215, 217, 230, 237, 259, 263, 270, 275, 295]
 
 if 1 in activated_components:
-  em1=restraints.GaussianEMRestraint(prot,'../inputs/themap.txt',segment_anchors=Kinase,
+  em1=restraints.GaussianEMRestraint(simo,'../inputs/themap.txt',segment_anchors=Kinase,
                                 segment_parts=['tfb3','ccl1','kin28'],resolution=30)
   em1.set_label('kinase_em')
   em1.add_to_model()
@@ -218,21 +219,21 @@ if 1 in activated_components:
   outputobjects.append(em1)
 
 if 2 in activated_components:
-  em2=restraints.GaussianEMRestraint(prot,'../inputs/themap.txt',segment_anchors=Rad3,segment_parts=['rad3'],resolution=30)
+  em2=restraints.GaussianEMRestraint(simo,'../inputs/themap.txt',segment_anchors=Rad3,segment_parts=['rad3'],resolution=30)
   em2.set_label('rad3_em')
   em2.add_to_model()
   sampleobjects.append(em2)
   outputobjects.append(em2)
 
 if 3 in activated_components:
-  em3=restraints.GaussianEMRestraint(prot,'../inputs/themap.txt',segment_anchors=Ssl2,segment_parts=['ssl2'],resolution=30)
+  em3=restraints.GaussianEMRestraint(simo,'../inputs/themap.txt',segment_anchors=Ssl2,segment_parts=['ssl2'],resolution=30)
   em3.set_label('ssl2_em')
   em3.add_to_model()
   sampleobjects.append(em3)
   outputobjects.append(em3)
 
 if 4 in activated_components:
-  em4=restraints.GaussianEMRestraint(prot,'../inputs/themap.txt',segment_anchors=Tfiihcore,
+  em4=restraints.GaussianEMRestraint(simo,'../inputs/themap.txt',segment_anchors=Tfiihcore,
                  segment_parts=['tfb1','tfb2','tfb4','tfb5','ssl1'],resolution=30)
   em4.set_label('tfiihcore_em')
   em4.add_to_model()
@@ -269,7 +270,7 @@ nframes=20#000
 bestscore, step = 1000000000000000, 0
 for k in range(nrmffiles):
   rmffile="models.rmf"
-  output.init_rmf(rmffile, prot)
+  output.init_rmf(rmffile, [simo.prot])
   output.add_restraints_to_rmf(rmffile,[xl])
 
   for i in range(nframes):
