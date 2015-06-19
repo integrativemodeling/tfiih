@@ -24,6 +24,14 @@ import IMP.pmi.tools as tools
 import IMP.pmi.samplers as samplers
 import IMP.pmi.output as output
 
+def set_rigid_bodies(simo, subunits, coords):
+    """Utility function to create rigid body near a given position"""
+    from numpy.random import rand as nrrand
+    from numpy import array
+    rb = simo.set_rigid_bodies(subunits)
+    randomize_coords = lambda c: tuple(1.*(nrrand(3)-0.5)+array(c))
+    rb.set_coordinates(randomize_coords(coords))
+
 ncycl=100  #number of montecarlo steps cycles
 rbmaxtrans=0.5
 fbmaxtrans=0.5
@@ -117,29 +125,29 @@ if 3 in activated_components:
 # --- set rigid bodies
 if 1 in activated_components:
   emxk,emyk,emzk = -68.03536154, 4.11344154, 33.2057 #99
-  simo.set_rigid_bodies(["tfb3"],(emxk,emyk,emzk))
-  simo.set_rigid_bodies(["ccl1","kin28"],(emxk,emyk,emzk))
+  set_rigid_bodies(simo, ["tfb3"],(emxk,emyk,emzk))
+  set_rigid_bodies(simo, ["ccl1","kin28"],(emxk,emyk,emzk))
 
 if 2 in activated_components:
   emxr,emyr,emzr = -36.77662667, -44.77829333,  12.750732 #73
-  simo.set_rigid_bodies(["rad3"],(emxr,emyr,emzr))
+  set_rigid_bodies(simo, ["rad3"],(emxr,emyr,emzr))
 
 if 4 in activated_components:
   emxt,emyt,emzt = 8.31117245, -63.22024737,  54.85138763 #40
-  simo.set_rigid_bodies([("tfb2",(437,513)),("tfb5",(1,72))], (emxt,emyt,emzt))
-  #simo.set_rigid_bodies([("tfb2",(1,436))], (emxt,emyt,emzt))
-  simo.set_rigid_bodies([("tfb2",(1,168))], (emxt,emyt,emzt))
-  simo.set_rigid_bodies([("tfb2",(169,436))], (emxt,emyt,emzt))
-  simo.set_rigid_bodies(["tfb1"], (emxt,emyt,emzt))
-  simo.set_rigid_bodies(["tfb4"],(emxt,emyt,emzt))
+  set_rigid_bodies(simo, [("tfb2",(437,513)),("tfb5",(1,72))], (emxt,emyt,emzt))
+  #set_rigid_bodies(simo, [("tfb2",(1,436))], (emxt,emyt,emzt))
+  set_rigid_bodies(simo, [("tfb2",(1,168))], (emxt,emyt,emzt))
+  set_rigid_bodies(simo, [("tfb2",(169,436))], (emxt,emyt,emzt))
+  set_rigid_bodies(simo, ["tfb1"], (emxt,emyt,emzt))
+  set_rigid_bodies(simo, ["tfb4"],(emxt,emyt,emzt))
   emxt,emyt,emzt = 8.31117245, -63.22024737,  54.85138763 #40
-  simo.set_rigid_bodies([("ssl1",(1,385))],(emxt,emyt,emzt))
-  simo.set_rigid_bodies([("ssl1",(386,461))],(emxt,emyt,emzt))
+  set_rigid_bodies(simo, [("ssl1",(1,385))],(emxt,emyt,emzt))
+  set_rigid_bodies(simo, [("ssl1",(386,461))],(emxt,emyt,emzt))
 
 
 if 3 in activated_components:
   emxk,emyk,emzk = -23.7230975, -13.095193, 69.7855035
-  simo.set_rigid_bodies(["ssl2"],(emxk,emyk,emzk))
+  set_rigid_bodies(simo, ["ssl2"],(emxk,emyk,emzk))
 
 
 simo.set_floppy_bodies()
