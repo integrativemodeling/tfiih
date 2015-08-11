@@ -118,8 +118,8 @@ if 4 in activated_components:
   simo.setup_component_sequence_connectivity("tfb1", resolution=30)
 
   simo.add_component_name("tfb2")
-  simo.add_pdb_and_intervening_beads("tfb2",'../inputs/TFB2_1-168.pdb',"A",resolutions=[1,30],resrange=(1,170), beadsize=30,color=185./360,attachbeads=True)
-  simo.add_pdb_and_intervening_beads("tfb2",'../inputs/TFB2_186-417.pdb',"A",resolutions=[1,30],resrange=(171,417), beadsize=30,color=185./360,attachbeads=True)
+  #simo.add_pdb_and_intervening_beads("tfb2",'../inputs/TFB2_1-168.pdb',"A",resolutions=[1,30],resrange=(1,170), beadsize=30,color=185./360,attachbeads=True)
+  #simo.add_pdb_and_intervening_beads("tfb2",'../inputs/TFB2_186-417.pdb',"A",resolutions=[1,30],resrange=(171,417), beadsize=30,color=185./360,attachbeads=True)
   simo.add_pdb_and_intervening_beads("tfb2",'../inputs/TFB2_392-513.pdb',"A",resolutions=[1,30],resrange=(418,513), beadsize=30,color=185./360,attachbeads=True)
   simo.setup_component_sequence_connectivity("tfb2", resolution=30)
 
@@ -137,11 +137,10 @@ if 4 in activated_components:
   simo.setup_component_sequence_connectivity("ssl1", resolution=30)
 
 
-if 3 in activated_components:
+if 1 in activated_components:
   simo.add_component_name("ssl2")
-  #simo.add_pdb_and_intervening_beads("ssl2",'fit_gtfs_3.pdb',"C",resolutions=[1,30],resrange=(1,538), beadsize=30,color=0.0,attachbeads=True)
-  #simo.add_pdb_and_intervening_beads("ssl2",'fit_gtfs_3.pdb',"D",resolutions=[1,30],resrange=(539,843), beadsize=30,color=0.0,attachbeads=True)
-  simo.add_pdb_and_intervening_beads("ssl2",'../inputs/SSL2_316-723.pdb',"A",resolutions=[1,30],resrange=(1,843), beadsize=30,color=0.0,attachbeads=True)
+  simo.add_pdb_and_intervening_beads("ssl2",'../inputs/fit_gtfs_3.pdb',"C",resolutions=[1,30],resrange=(1,538), beadsize=30,color=0.0,attachbeads=True)
+  simo.add_pdb_and_intervening_beads("ssl2",'../inputs/fit_gtfs_3.pdb',"D",resolutions=[1,30],resrange=(539,843), beadsize=30,color=0.0,attachbeads=True)
   simo.setup_component_sequence_connectivity("ssl2", resolution=30)
 
 
@@ -151,29 +150,28 @@ if 3 in activated_components:
 
 # --- set rigid bodies
 if 1 in activated_components:
-  emxk,emyk,emzk = -68.03536154, 4.11344154, 33.2057 #99
+  emxk,emyk,emzk = 215.249,220.731,167.764 #21
   simo.set_rigid_bodies(["tfb3"],(emxk,emyk,emzk))
   simo.set_rigid_bodies(["ccl1","kin28"],(emxk,emyk,emzk))
 
 if 2 in activated_components:
-  emxr,emyr,emzr = -36.77662667, -44.77829333,  12.750732 #73
+  emxr,emyr,emzr = 147.133,219.683,188.062 #0
   simo.set_rigid_bodies(["rad3"],(emxr,emyr,emzr))
 
 if 4 in activated_components:
-  emxt,emyt,emzt = 8.31117245, -63.22024737,  54.85138763 #40
+  emxt,emyt,emzt = 126.646,130.588,192.099 #90
   simo.set_rigid_bodies([("tfb2",(437,513)),("tfb5",(1,72))], (emxt,emyt,emzt))
-  #simo.set_rigid_bodies([("tfb2",(1,436))], (emxt,emyt,emzt))
-  simo.set_rigid_bodies([("tfb2",(1,168))], (emxt,emyt,emzt))
-  simo.set_rigid_bodies([("tfb2",(169,436))], (emxt,emyt,emzt))
+  simo.set_rigid_bodies([("tfb2",(1,436))], (emxt,emyt,emzt))
+  #simo.set_rigid_bodies([("tfb2",(1,168))], (emxt,emyt,emzt))
+  #simo.set_rigid_bodies([("tfb2",(169,436))], (emxt,emyt,emzt))
   simo.set_rigid_bodies(["tfb1"], (emxt,emyt,emzt))
   simo.set_rigid_bodies(["tfb4"],(emxt,emyt,emzt))
-  emxt,emyt,emzt = 8.31117245, -63.22024737,  54.85138763 #40
   simo.set_rigid_bodies([("ssl1",(1,385))],(emxt,emyt,emzt))
   simo.set_rigid_bodies([("ssl1",(386,461))],(emxt,emyt,emzt))
 
 
 if 3 in activated_components:
-  emxk,emyk,emzk = -23.7230975, -13.095193, 69.7855035
+  emxk,emyk,emzk = 212.272,129.032,178.206 #80
   simo.set_rigid_bodies(["ssl2"],(emxk,emyk,emzk))
 
 

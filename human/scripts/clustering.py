@@ -24,7 +24,7 @@ ax=pl.subplot(312)
 l=ax.imshow(M[R['leaves']][:,R['leaves']], interpolation='nearest')
 pl.colorbar(l)
 
-km = KMeans(k=3)
+km = KMeans(3) #TODO check based on hierarchical clustering and fit! 
 clusters = km.fit_predict(M)
 
 # heat map corresponding to kmeans clustering
@@ -44,7 +44,7 @@ for c in set(clusters):
 	  Clusters[c] = [r,cls,np.sum(m) / (len(m)**2 - len(m))]	
 	else:
 	  Clusters[c] = [r,cls,0.0]
-	  print "Single member cluster: how do you expect me to calculate precision?"
+	  print "Single member cluster: how on earth do you expect me to calculate precision? Are you in your senses?"
 pl.show()
 
 

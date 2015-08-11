@@ -28,12 +28,11 @@ import IMP.pmi.analysis as analysis
 
 
 nframes=5000 
-nframes=10
 xlinkAmplitude=17  
 
 ncycl=100  #number of montecarlo steps cycles
-rbmaxtrans=1.0
-fbmaxtrans=1.0
+rbmaxtrans=0.7
+fbmaxtrans=0.7
 
 outputobjects=[]
 sampleobjects=[]
@@ -57,17 +56,17 @@ simo=representation.SimplifiedModel(m, upperharmonic=False, disorderedlength=Tru
 
 # --- Get atomic models available
 # Sub component 1: Kinase 
-#simo.add_component_name("ccl1")
-#simo.add_pdb_and_intervening_beads("ccl1",'CCL1.pdb',"A",resolutions=[1,30],resrange=(?,?),beadsize=30,color=60./360,attachbeads=True)
-#simo.setup_component_sequence_connectivity("ccl1", resolution=30)
+simo.add_component_name("ccl1")
+simo.add_pdb_and_intervening_beads("ccl1",'KIN28_CCL1.pdb',"B",resolutions=[1,30],resrange=(1,323),beadsize=30,color=60./360,attachbeads=True)
+simo.setup_component_sequence_connectivity("ccl1", resolution=30)
 
-#simo.add_component_name("kin28")
-#simo.add_pdb_and_intervening_beads("kin28",'KIN28.pdb',"A",resolutions=[1,30],resrange=(?,?), beadsize=30,color=185./360,attachbeads=True)
-#simo.setup_component_sequence_connectivity("kin28", resolution=30)
+simo.add_component_name("kin28")
+simo.add_pdb_and_intervening_beads("kin28",'KIN28_CCL1.pdb',"A",resolutions=[1,30],resrange=(1,346), beadsize=30,color=185./360,attachbeads=True)
+simo.setup_component_sequence_connectivity("kin28", resolution=30)
 
-#simo.add_component_name("tfb3")
-#simo.add_pdb_and_intervening_beads("tfb3",'TFB3.pdb',"A",resolutions=[1,30],resrange=(?,?), beadsize=30,color=285./360,attachbeads=True)
-#simo.setup_component_sequence_connectivity("tfb3", resolution=30)
+simo.add_component_name("tfb3")
+simo.add_pdb_and_intervening_beads("tfb3",'TFB3.pdb',"A",resolutions=[1,30],resrange=(1,309), beadsize=30,color=285./360,attachbeads=True)
+simo.setup_component_sequence_connectivity("tfb3", resolution=30)
 
 # Sub component 2: Rad3
 simo.add_component_name("rad3")
@@ -101,28 +100,23 @@ simo.setup_component_sequence_connectivity("ssl1", resolution=30)
 
 # --- set rigid bodies
 # Sub component 1: Kinase
-#emxk,emyk,emzk = ?, ?, ? #99
-#simo.set_rigid_bodies(["tfb3"],(emxk,emyk,emzk))
-#simo.set_rigid_bodies(["ccl1","kin28"],(emxk,emyk,emzk))
+emxk,emyk,emzk = 80.35, -23.66, 73.14   
+simo.set_rigid_bodies(["ccl1","kin28"],(emxk,emyk,emzk))
+
+# Sub component 2: Tfb3
+emxk,emyk,emzk = 17.25, -41.81, -21.93   
+simo.set_rigid_bodies(["tfb3"],(emxk,emyk,emzk))
 
 # Sub component 2: Rad3
-emxr,emyr,emzr =  39.118, 7.312, -11.998 # 75
+emxr,emyr,emzr = 37.25, 14.39, -1.38
 simo.set_rigid_bodies(["rad3"],(emxr,emyr,emzr))
 
 # Sub component 3: Ssl2 + Tfiihcore
-emxt,emyt,emzt = -42.520,  -2.832, -10.375 # 123
+emxt,emyt,emzt = -29.65, -1.27, -0.32
 simo.set_rigid_bodies([("tfb2"),("tfb5")], (emxt,emyt,emzt))
-
-# No need to set extra rigid bodies: do so only when you have the structure.
-#simo.set_rigid_bodies([("tfb2",(395,453)),("tfb5")], (emxt,emyt,emzt))
-
-#simo.set_rigid_bodies([("tfb2",(1,394))], (emxt,emyt,emzt))
-#simo.set_rigid_bodies([("tfb2",(454,462))], (emxt,emyt,emzt))
-
 simo.set_rigid_bodies(["tfb1"], (emxt,emyt,emzt))
 simo.set_rigid_bodies(["tfb4"],(emxt,emyt,emzt))
 simo.set_rigid_bodies(["ssl1"],(emxt,emyt,emzt))
-#simo.set_rigid_bodies([("ssl1",(386,461))],(emxt,emyt,emzt))
 simo.set_rigid_bodies(["ssl2"],(emxt,emyt,emzt))
 
 # --- set simulation params
@@ -139,7 +133,6 @@ outputobjects.append(simo)
 sampleobjects.append(simo)
 
 ##simo.draw_hierarchy_composition()
-
 #####################################################
 #analyze RMFs
 #####################################################
@@ -149,13 +142,17 @@ import numpy as np
 import glob, random
 import pylab as pl
 
-allStatFiles =glob.glob('stats/stat*.dat')
-files=allStatFiles
-print files
+allStatFiles = glob.glob('/salilab/park1/shruthi/tfiih/tfb3changed_humanCAK/stat/stat*.dat') 
 
-#"""
+print allStatFiles
+scoreCutoff=-4230 # for top 10% or about 100 models #TODO change this as needed
+
+#allStatFiles =glob.glob('/salilab/park1/shruthi/tfiih/humanAnalysis/stats/stat_390.dat')
+files=allStatFiles
+
+"""
 #####################################################
-### --- Get list of xlinks: produces the input file restraint_violations.txt
+### --- Get list of xlinks
 #####################################################
 for z, fil in enumerate(files[:1]):
 
@@ -171,14 +168,26 @@ for z, fil in enumerate(files[:1]):
     # get the names of crosslinks
     count=0
     for d in H:
-      if H[d].startswith('SigmoidCrossLink'):
-	  print H[d]+'\t30'
+      if H[d].startswith('SigmoidCrossLinkMS_Distance'):
+	  print H[d]+'\t34'
 	  count=count+1
     print count
 exit()
-#"""
+"""
 
-#"""
+"""
+#####################################################
+### --- Get stat files and models belonging to half of best cluster
+#####################################################
+
+data = open('cluster_run'+seed+'.pkl')
+
+data.close()
+
+exit()
+"""
+
+"""
 #####################################################
 ### --- Test RMF hierarchy
 #####################################################
@@ -218,10 +227,10 @@ for z, fil in enumerate(files[:1]):
     output.init_rmf(rmffile, prot)
     output.write_rmf(rmffile,0)
 exit()
-#"""
-#"""
+"""
+"""
 #####################################################
-### --- Score distribution: get top 10% of scores
+### --- Score distribution
 #####################################################
 
 S = []
@@ -252,15 +261,15 @@ pl.savefig('scores_run'+seed+'.png')
 pl.show()
 
 exit()
-#"""
+"""
 
-#"""
 #####################################################
 ### --- Analyze violations
 #####################################################
 import copy
-Analysis = analysis.Violations('restraint_violations.txt') # from where is this file coming?? 
+Analysis = analysis.Violations('restraint_violations_34A.txt') # from where is this file coming?? 
 X,Y=[],[]
+Scores=[]
 for z, fil in enumerate(files):
 
     data = open(fil)
@@ -271,19 +280,27 @@ for z, fil in enumerate(files):
     scores = {}
     H = eval(D[0].strip())
     H = dict([(H[c],c) for c in H])
+    otherscores={}
    
     for i,d in enumerate(D[1:]):
         dct = eval(d.strip('\n'))
         score = float(dct[H['SimplifiedModel_Total_Score_None']])
         scores[score] = i
+        otherscores[score] = [float(dct[H['SimplifiedModel_Linker_Score_None']]),\
+                              float(dct[H['ExcludedVolumeSphere_None']]),\
+                              float(dct[H['GaussianEMRestraint_kinase_em']]),\
+                              float(dct[H['GaussianEMRestraint_rad3_em']]),\
+                              float(dct[H['GaussianEMRestraint_tfb3_em']]),\
+                              float(dct[H['GaussianEMRestraint_tfiicore_em']])]
 
     for score in sorted(scores.keys())[:1]:
-        if score>-3000.: continue  #TODO change score to match your top 10% cutoff
+        if score>scoreCutoff: continue  # consider only top 10% of models
         frame_number = scores[score]
 
         violrst = Analysis.get_number_violated_restraints( eval(D[frame_number].strip('\n')), eval(D[0].strip('\n')) )
         X.append(score); Y.append(violrst)
-        print z,fil, score, violrst
+        print z,fil, score, violrst, otherscores[score]
+        Scores.append(otherscores[score])
     
 
 #pl.plot(X,Y,'k.')
@@ -291,7 +308,8 @@ for z, fil in enumerate(files):
 #pl.show()
 
 V = Analysis.violation_counts  # only for cross-links, plot violated restraints over all structures
-
+print
+print Scores
 #pl.bar(range(len(V)),sorted(V.values()))
 #print V,len(V),'1111111'
 #pl.savefig('bar_xlink_violation_counts_run'+seed+'.png')
@@ -301,10 +319,9 @@ ofile=open('violation_counts_alltopscoring_34A.txt','w')
 ofile.write(str(V))
 ofile.close()
 
-exit()
-#"""
+#exit()
 
-#"""
+"""
 #####################################################
 ### --- Get clustered heat map  (Manual)
 #####################################################
@@ -326,11 +343,11 @@ for cnt,fil in enumerate(files):
         dct = eval(d.strip('\n'))
         score = float(dct[H['SimplifiedModel_Total_Score_None']])
         scores[score] = i
-    if sorted(scores.keys())[0]>-3000.: continue #TODO change score to match your top 10% cutoff
+    if sorted(scores.keys())[0]>scoreCutoff: continue #TODO
 
     # load the frame
     rx = int(fil.split('_')[-1].split('.')[0])
-    rh= RMF.open_rmf_file('rmfs/models_%i.0.rmf' % (rx ))  
+    rh= RMF.open_rmf_file('rmf/models_%i.0.rmf' % (rx ))  
    
     IMP.rmf.link_hierarchies(rh, [prot])
 
@@ -351,7 +368,8 @@ for cnt,fil in enumerate(files):
             coords = np.array([np.array(IMP.core.XYZ(i).get_coordinates()) for i in parts])
             Coords[pr] = coords 
             
-           
+            #if pr=='tfb2' or pr=='ssl2': #TODO
+	    #for i in parts: print i, IMP.core.XYZ(i).get_coordinates()
 
         Clusters.fill(fil+'.'+str(frame_number), Coords, alignment=0)
 
@@ -362,12 +380,13 @@ print len(Clusters.all_coords.keys())
 
 print "Global clustered heat map, not aligned"
 Clusters.dist_matrix()
-
-print "Not done yet: use the clustering.py script along with the distance matrix output just now to get the actual clusters"
+# these two were removed because we made analysis take in the filename for cluster file or pickle file
+#os.rename("tmp_clustering.pdf", "Seh1_Sec13_global.pdf")
+#os.remove("tmp_cluster_493.pkl") #info for plotting, later on. Also contains list of clusters. 
 exit()
-#"""
+"""
 
-#"""
+"""
 # This is needed for the analysis steps that depend on clustering
 infile = open('cluster_run'+seed+'.out')
 dominantClusterNumber=0  # this is true for both independent runs
@@ -380,9 +399,9 @@ files = [i.rsplit('.',1)[0] for i in Clusters[dominantClusterNumber][1]]
 # just taking half of this cluster hoping to get better resolved localizations
 files= files[:len(files)/2]
 print len(files)
-#"""
+"""
 
-#"""
+"""
 #####################################################
 ### --- Save as PDBs
 #####################################################
@@ -417,8 +436,8 @@ for z, fil in enumerate(files):
 
     print z,fil
 exit()
-#"""
-#"""
+"""
+"""
 #####################################################
 ### --- Get contact map
 #####################################################
@@ -440,11 +459,11 @@ for z, fil in enumerate(files):
         dct = eval(d.strip('\n'))
         score = float(dct[H['SimplifiedModel_Total_Score_None']])
         scores[score] = i
-    if sorted(scores.keys())[0]>-3000.: continue #TODO
+    if sorted(scores.keys())[0]>scoreCutoff: continue 
 
     # load the frame
     rx = int(fil.split('_')[-1].split('.')[0])
-    rh= RMF.open_rmf_file('rmfs/models_%i.0.rmf' % (rx ))
+    rh= RMF.open_rmf_file('rmf/models_%i.0.rmf' % (rx ))
     IMP.rmf.link_hierarchies(rh, [prot])
 
     for frm,score in enumerate(sorted(scores.keys())[:1]):
@@ -456,6 +475,7 @@ for z, fil in enumerate(files):
     
         ContactMap.get_subunit_coords(fil+'.'+str(frm))
         
+               
         print fil,frame_number
         
         numModels=numModels+1
@@ -466,23 +486,29 @@ print "Total number of models",numModels
 ContactMap.add_xlinks('Ranish_Kornberg_thiih_xlinks_human.txt')  
 ContactMap.dist_matrix(skip_cmap=0, skip_xl=0, outname='ContactMap_all_Matrix_CM.pkl')
 exit()
-#"""
-
+"""
+"""
 #####################################################
 ### ---- Get global or local density map
 #####################################################
-costum_ranges ={  # these domains are from the paper
+costum_ranges ={  # these domains are from the paper #TODO modify for human
+                'kin28' :[['kin28_nlobe',1,96],['kin28_clobe',97,-1]],
+
+                'ccl1' :[['ccl1_n',1,155],['ccl1_c',156,-1]],
+
+                'tfb3' :[['tfb3_n',1,132],['tfb3_latch',133,-1]],
+                
                 'rad3' :[['rad3d1',1,245],['rad3d2',246,438],['rad3d3',439,701],['rad3d4',702,-1]],
+                'ssl1' :[['ssl1d1',1,240],['ssl1d2',241,-1]],
                 
                 'ssl2' :[['ssl2d1',1,304],['ssl2d2',305,471],['ssl2d3',472,674],['ssl2d4',675,-1]],
            
-		'ssl1' :[['ssl1d1',1,240],['ssl1d2',241,-1]],
-                
+		             
                 'tfb1' :[['tfb1d1',1,107],['tfb1d2',108,254],['tfb1d3',255,457],['tfb1d4',458,-1]],
                 
                 'tfb2' :[['tfb2d1',1,274],['tfb2d2',275,381],['tfb2d3',382,-1]],
                 
-                'tfb4' :[['tfb4d1',1,210],['tfb4d2',211,-1]],
+                'tfb4' :[['tfb4d1',1,230],['tfb4d2',231,-1]], # in keeping with the yeast case which is 8 residues before the VWA domain actually ends
                 
                 'tfb5' :[['tfb5',2,-1]]}
 
@@ -504,12 +530,12 @@ for z, fil in enumerate(files):
         dct = eval(d.strip('\n'))
         score = float(dct[H['SimplifiedModel_Total_Score_None']])
         scores[score] = i
-    if sorted(scores.keys())[0]>-3000.: continue #TODO
+    if sorted(scores.keys())[0]>scoreCutoff: continue #TODO
 
 
     # load the frame
     rx = int(fil.split('_')[-1].split('.')[0])
-    rh= RMF.open_rmf_file('rmfs/models_%i.0.rmf' % (rx ))
+    rh= RMF.open_rmf_file('rmf/models_%i.0.rmf' % (rx ))
     IMP.rmf.link_hierarchies(rh, [prot])
 
     for frm,score in enumerate(sorted(scores.keys())[:1]):
@@ -524,8 +550,19 @@ for z, fil in enumerate(files):
 #print len(DensModule.densities[DensModule.densities.keys()[0]])
 
 # for all top scoring runs (NOT the best model, but all top scoring)
-DensModule.write_mrc('tfiih_human_run'+seed)   
+#DensModule.write_mrc('tfiih_human_kinase_cluster_run'+seed)    # required
 
+# for all top scoring models of both runs with domain splits
+#DensModule.write_mrc('tfiih_human_kinase_domain_split_all_top')
+
+# for all top scoring models of both runs without domain splits
+#DensModule.write_mrc('tfiih_human_kinase_all_top')
+
+# for dominant half of single cluster runs
+#DensModule.write_mrc('tfiih_human_kinase_dominant_cluster_half_run'+seed)
+
+# for dominant half of single cluster, with domain splits
+#DensModule.write_mrc('tfiih_human_kinase_domain_split_dominant_cluster_run'+seed)
 exit()
-
+"""
 
