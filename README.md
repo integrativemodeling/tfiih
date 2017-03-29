@@ -1,4 +1,4 @@
-These scripts demonstrate the use of [IMP](http://integrativemodeling.org)
+These scripts demonstrate the use of [IMP](https://integrativemodeling.org)
 and [PMI](https://github.com/salilab/pmi) in the modeling of the TFIIH complex
 using chemical cross-links and electron microscopy (EM) density maps.
 
