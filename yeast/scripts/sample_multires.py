@@ -152,7 +152,7 @@ def shuffle_configuration_no_translation(simo, bounding_box_length=300.):
 shuffle_configuration_no_translation(simo)
 
 
-prot=simo.get_hierarchy()
+prot=simo.prot
 outputobjects.append(simo)
 sampleobjects.append(simo)
 
