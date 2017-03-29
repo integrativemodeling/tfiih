@@ -7,7 +7,8 @@ import IMP.container
 import os
 import IMP.rmf
 import RMF
-
+from numpy import array
+from numpy.random import rand as nrrand
 import IMP.pmi.restraints as restraints
 import IMP.pmi.representation as representation
 import IMP.pmi.tools as tools
@@ -90,35 +91,37 @@ if 1 in activated_components:
   simo.setup_component_sequence_connectivity("ssl2", resolution=30)
 
 
-
-
-
+# Make a set of subunits into a single rigid body, and set its coordinates
+def make_rigid_with_coord(simo, subunits, coords):
+    randomize_coords = lambda c: tuple(1.*(nrrand(3)-0.5)+array(c))
+    rb = simo.set_rigid_bodies(subunits)
+    rb.set_coordinates(randomize_coords(coords))
 
 # --- set rigid bodies
 if 1 in activated_components:
   emxk,emyk,emzk = 215.249,220.731,167.764 #21
-  simo.set_rigid_bodies(["tfb3"],(emxk,emyk,emzk))
-  simo.set_rigid_bodies(["ccl1","kin28"],(emxk,emyk,emzk))
+  make_rigid_with_coord(simo, ["tfb3"],(emxk,emyk,emzk))
+  make_rigid_with_coord(simo, ["ccl1","kin28"],(emxk,emyk,emzk))
 
 if 2 in activated_components:
   emxr,emyr,emzr = 147.133,219.683,188.062 #0
-  simo.set_rigid_bodies(["rad3"],(emxr,emyr,emzr))
+  make_rigid_with_coord(simo, ["rad3"],(emxr,emyr,emzr))
 
 if 4 in activated_components:
   emxt,emyt,emzt = 126.646,130.588,192.099 #90
-  simo.set_rigid_bodies([("tfb2",(437,513)),("tfb5",(1,72))], (emxt,emyt,emzt))
-  simo.set_rigid_bodies([("tfb2",(1,436))], (emxt,emyt,emzt))
-  #simo.set_rigid_bodies([("tfb2",(1,168))], (emxt,emyt,emzt))
-  #simo.set_rigid_bodies([("tfb2",(169,436))], (emxt,emyt,emzt))
-  simo.set_rigid_bodies(["tfb1"], (emxt,emyt,emzt))
-  simo.set_rigid_bodies(["tfb4"],(emxt,emyt,emzt))
-  simo.set_rigid_bodies([("ssl1",(1,385))],(emxt,emyt,emzt))
-  simo.set_rigid_bodies([("ssl1",(386,461))],(emxt,emyt,emzt))
+  make_rigid_with_coord(simo, [("tfb2",(437,513)),("tfb5",(1,72))], (emxt,emyt,emzt))
+  make_rigid_with_coord(simo, [("tfb2",(1,436))], (emxt,emyt,emzt))
+  #make_rigid_with_coord(simo, [("tfb2",(1,168))], (emxt,emyt,emzt))
+  #make_rigid_with_coord(simo, [("tfb2",(169,436))], (emxt,emyt,emzt))
+  make_rigid_with_coord(simo, ["tfb1"], (emxt,emyt,emzt))
+  make_rigid_with_coord(simo, ["tfb4"],(emxt,emyt,emzt))
+  make_rigid_with_coord(simo, [("ssl1",(1,385))],(emxt,emyt,emzt))
+  make_rigid_with_coord(simo, [("ssl1",(386,461))],(emxt,emyt,emzt))
 
 
 if 3 in activated_components:
   emxk,emyk,emzk = 212.272,129.032,178.206 #80
-  simo.set_rigid_bodies(["ssl2"],(emxk,emyk,emzk))
+  make_rigid_with_coord(simo, ["ssl2"],(emxk,emyk,emzk))
 
 
 
