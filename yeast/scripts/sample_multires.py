@@ -9,7 +9,8 @@ import IMP.rmf
 import RMF
 from numpy import array
 from numpy.random import rand as nrrand
-import IMP.pmi.restraints as restraints
+import IMP.pmi.restraints.stereochemistry
+import IMP.pmi.restraints.crosslinking
 import IMP.pmi.representation as representation
 import IMP.pmi.tools as tools
 import IMP.pmi.samplers as samplers
@@ -164,14 +165,14 @@ sampleobjects.append(simo)
 #####################################################
 
 #EV restraint
-ev=restraints.ExcludedVolumeSphere(prot, resolution=30)
+ev=IMP.pmi.restraints.stereochemistry.ExcludedVolumeSphere(simo, resolution=30)
 ev.add_to_model()
 outputobjects.append(ev)
 
 
 #cross-link restraint
-xl=restraints.SigmoidCrossLinkMS(prot,\
-                             '../inputs/Ranish_Kornberg_thiih_xlinks.txt', \
+xl=IMP.pmi.restraints.crosslinking.SigmoidalCrossLinkMS(simo,
+                             '../inputs/Ranish_Kornberg_thiih_xlinks.txt',
                              inflection=25.0,slope=5.0,amplitude=25.0,linear_slope=0.05,resolution=1)
 xl.add_to_model()
 outputobjects.append(xl)
