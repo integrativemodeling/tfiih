@@ -35,22 +35,12 @@ exit()
 #!/usr/bin/env python
 import IMP
 import IMP.core
-import IMP.base
 import IMP.algebra
 import IMP.atom
 import IMP.container
-#import IMP.isd2
-import random
 import os
 import IMP.rmf
 import RMF
-import inspect
-
-from numpy import random
-#from numpy import *
-
-from math import cos
-from math import sqrt
 
 import IMP.pmi.restraints as restraints
 import IMP.pmi.representation as representation
@@ -200,7 +190,7 @@ sampleobjects.append(simo)
 
 import pickle
 import numpy as np
-import glob, random
+import glob
 
 
 files = glob.glob('../outputs/stat*.dat')

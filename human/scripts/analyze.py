@@ -5,19 +5,9 @@ import IMP.base
 import IMP.algebra
 import IMP.atom
 import IMP.container
-#import IMP.isd2
-import random
 import os,sys
 import IMP.rmf
 import RMF
-import inspect
-
-import string
-from numpy import random
-#from numpy import *
-
-from math import cos
-from math import sqrt
 
 import IMP.pmi.restraints as restraints
 import IMP.pmi.representation as representation
@@ -139,7 +129,7 @@ sampleobjects.append(simo)
 
 import pickle
 import numpy as np
-import glob, random
+import glob
 import pylab as pl
 
 allStatFiles = glob.glob('/salilab/park1/shruthi/tfiih/tfb3changed_humanCAK/stat/stat*.dat') 
