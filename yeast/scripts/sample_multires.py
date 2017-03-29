@@ -130,9 +130,26 @@ d=simo.get_particles_to_sample()
 simo.set_rigid_bodies_max_trans(rbmaxtrans)
 simo.set_floppy_bodies_max_trans(fbmaxtrans)
 
+def shuffle_configuration_no_translation(simo, bounding_box_length=300.):
+    "shuffle configuration, used to restart the optimization"
+    "it only works if rigid bodies were initialized"
+    if len(simo.rigid_bodies)==0:
+        print "MultipleStates: rigid bodies were not intialized"
+    hbbl=bounding_box_length/2
+    ub = IMP.algebra.Vector3D(-hbbl,-hbbl,-hbbl)
+    lb = IMP.algebra.Vector3D( hbbl, hbbl, hbbl)
+    bb = IMP.algebra.BoundingBox3D(ub, lb)
+    for rb in simo.rigid_bodies:
+        translation = (rb.get_x(), rb.get_y(), rb.get_z())
+        rotation = IMP.algebra.get_random_rotation_3d()
+        transformation = IMP.algebra.Transformation3D(rotation, translation)
+        rb.set_reference_frame(IMP.algebra.ReferenceFrame3D(transformation))
+    for fb in simo.floppy_bodies:
+        translation = IMP.algebra.get_random_vector_in(bb)
+        IMP.core.XYZ(fb).set_coordinates(translation)
 
 #re-orient initial positions
-simo.shuffle_configuration(translate=False)
+shuffle_configuration_no_translation(simo)
 
 
 prot=simo.get_hierarchy()
