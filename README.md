@@ -70,3 +70,8 @@ _Testable_: Yes.
 _Parallelizeable_: Yes
 
 _Publications_:
+ - J. Luo, P. Cimermancic, S. Viswanath, C. Ebmeier, B. Kim, M. Dehecq,
+   V. Raman, C. Greenberg, R. Pellarin, A. Sali, D. Taatjes, S. Hahn,
+   J. Ranish. [Architecture of the human and yeast general transcription
+   and DNA repair factor TFIIH](https://www.ncbi.nlm.nih.gov/pubmed/26340423),
+   Mol Cell 59, 794-806, 2015.
