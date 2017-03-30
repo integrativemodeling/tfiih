@@ -247,20 +247,21 @@ nframes=20#000
 bestscore, step = 1000000000000000, 0
 for k in range(nrmffiles):
   rmffile="models.rmf"
-  output.init_rmf(rmffile, prot)
+  output.init_rmf(rmffile, [prot])
   output.add_restraints_to_rmf(rmffile,[xl])
+  rset = IMP.pmi.tools.get_restraint_set(m)
 
   for i in range(nframes):
-    mc.run(ncycl)
+    mc.optimize(ncycl)
     print mc.get_frame_number()
-    score = m.evaluate(False)
+    score = rset.evaluate(False)
 
     output.set_output_entry("rmf_file",rmffile)
     output.set_output_entry("rmf_frame_index",step)
     if score < bestscore:
       output.write_stats2()
       print '\tBest score: ',score
-      output.write_rmf(rmffile,step)
+      output.write_rmf(rmffile)
       bestscore = score
       step += 1
   output.close_rmf(rmffile)
