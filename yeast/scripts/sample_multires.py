@@ -9,6 +9,7 @@ import IMP.rmf
 import RMF
 from numpy import array
 from numpy.random import rand as nrrand
+import restraints
 import IMP.pmi.restraints.stereochemistry
 import IMP.pmi.restraints.crosslinking
 import IMP.pmi.representation as representation
