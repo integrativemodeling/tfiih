@@ -9,6 +9,7 @@ import os
 import IMP.rmf
 import RMF
 
+import topology
 import IMP.pmi.restraints as restraints
 import IMP.pmi.representation as representation
 import IMP.pmi.tools as tools
@@ -28,6 +29,8 @@ import glob
 # Get stats files from all independent runs
 files = glob.glob('../outputs/stat*.dat')
 
+m, simo = topology.make_topology()
+prot = simo.prot
 
 """
 #####################################################
