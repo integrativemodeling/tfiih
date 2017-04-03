@@ -254,6 +254,7 @@ for k in range(nrmffiles):
   for i in range(nframes):
     mc.optimize(ncycl)
     print mc.get_frame_number()
+    m.update()
     score = rset.evaluate(False)
 
     output.set_output_entry("rmf_file",rmffile)
