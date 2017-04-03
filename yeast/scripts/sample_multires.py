@@ -17,6 +17,7 @@ import IMP.pmi.tools as tools
 import IMP.pmi.samplers as samplers
 import IMP.pmi.output as output
 
+run_number = 0 # Change for each independent run
 ncycl=100  #number of montecarlo steps cycles
 rbmaxtrans=0.5
 fbmaxtrans=0.5
@@ -236,7 +237,8 @@ sw = tools.Stopwatch()
 outputobjects.append(sw)
 
 output = output.Output()
-output.init_stat2("stat.dat", outputobjects,extralabels=["rmf_file","rmf_frame_index"])
+output.init_stat2("../outputs/stat_%d.dat" % run_number,
+                  outputobjects,extralabels=["rmf_file","rmf_frame_index"])
 
 
 #####################################################
@@ -246,7 +248,7 @@ nrmffiles=1
 nframes=20 if '--test' in sys.argv else 20000
 bestscore, step = 1000000000000000, 0
 for k in range(nrmffiles):
-  rmffile="models.rmf"
+  rmffile="../outputs/models_%d.0.rmf" % run_number
   output.init_rmf(rmffile, [prot])
   output.add_restraints_to_rmf(rmffile,[xl])
   rset = IMP.pmi.tools.get_restraint_set(m)
