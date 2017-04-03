@@ -54,7 +54,8 @@ for z, fil in enumerate(files[:1]):
 
     # load the frame
     rx = int(fil.split('_')[-1].split('.')[0])
-    rh= RMF.open_rmf_file('%s/models_%i.0.rmf' % (fil.rsplit('/',1)[0], rx ))
+    rh= RMF.open_rmf_file_read_only(
+                    '%s/models_%i.0.rmf' % (fil.rsplit('/',1)[0], rx ))
     IMP.rmf.link_hierarchies(rh, [prot])
 
     # save the frame
@@ -181,7 +182,8 @@ for cnt,fil in enumerate(files):
 
     # load the frame
     rx = int(fil.split('_')[-1].split('.')[0])
-    rh= RMF.open_rmf_file('%s/models_%i.0.rmf' % (fil.rsplit('/',1)[0], rx ))
+    rh= RMF.open_rmf_file_read_only(
+                        '%s/models_%i.0.rmf' % (fil.rsplit('/',1)[0], rx ))
     IMP.rmf.link_hierarchies(rh, [prot])
 
     for frm,score in enumerate(sorted(scores.keys())[:1]):
@@ -252,7 +254,8 @@ for z, fil in enumerate(files):
 
     # load the frame
     rx = int(fil.split('_')[-1].split('.')[0])
-    rh= RMF.open_rmf_file('%s/models_%i.0.rmf' % (fil.rsplit('/',1)[0], rx ))
+    rh= RMF.open_rmf_file_read_only(
+                      '%s/models_%i.0.rmf' % (fil.rsplit('/',1)[0], rx ))
     IMP.rmf.link_hierarchies(rh, [prot])
 
     for frm,score in enumerate(sorted(scores.keys())[:1]):
@@ -291,7 +294,8 @@ for z, fil in enumerate(files):
 
     # load the frame
     rx = int(fil.split('_')[-1].split('.')[0])
-    rh= RMF.open_rmf_file('%s/models_%i.0.rmf' % (fil.rsplit('/',1)[0], rx ))
+    rh= RMF.open_rmf_file_read_only(
+                        '%s/models_%i.0.rmf' % (fil.rsplit('/',1)[0], rx ))
     IMP.rmf.link_hierarchies(rh, [prot])
 
     for frm,score in enumerate(sorted(scores.keys())[:1]):
@@ -367,7 +371,8 @@ for z, fil in enumerate(files):
 
     # load the frame
     rx = int(fil.split('_')[-1].split('.')[0])
-    rh= RMF.open_rmf_file('%s/models_%i.0.rmf' % (fil.rsplit('/',1)[0], rx ))
+    rh= RMF.open_rmf_file_read_only(
+                         '%s/models_%i.0.rmf' % (fil.rsplit('/',1)[0], rx ))
     IMP.rmf.link_hierarchies(rh, [prot])
 
     for frm,score in enumerate(sorted(scores.keys())[:1]):
