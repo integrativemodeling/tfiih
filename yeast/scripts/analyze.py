@@ -25,8 +25,8 @@ import pickle
 import numpy as np
 import glob
 
-
-files = glob.glob('../outputs/stat*.dat')
+# Get all stats file from current run and other independent runs
+files = ['stat.dat'] + glob.glob('../outputs/stat*.dat')
 
 
 """
