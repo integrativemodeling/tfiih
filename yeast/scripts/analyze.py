@@ -137,8 +137,13 @@ for z, fil in enumerate(files):
     for score in sorted(scores.keys())[:1]:
         if score>1000.: continue
         frame_number = scores[score]
+        dct = eval(D[frame_number].strip('\n'))
+        score_dct = {}
+        for k in H.keys():
+            if isinstance(H[k], int):
+                score_dct[k] = dct[H[k]]
 
-        violrst = Analysis.get_number_violated_restraints( eval(D[frame_number].strip('\n')), eval(D[0].strip('\n')) )
+        violrst = Analysis.get_number_violated_restraints(score_dct)
         X.append(score); Y.append(violrst)
         print z,fil, score, violrst, otherscores[score]
         Scores.append( otherscores[score] )
