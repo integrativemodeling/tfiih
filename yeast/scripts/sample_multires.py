@@ -243,7 +243,7 @@ output.init_stat2("stat.dat", outputobjects,extralabels=["rmf_file","rmf_frame_i
 #running simulation
 #####################################################
 nrmffiles=1
-nframes=20#000
+nframes=20 if '--test' in sys.argv else 20000
 bestscore, step = 1000000000000000, 0
 for k in range(nrmffiles):
   rmffile="models.rmf"
