@@ -97,12 +97,11 @@ for z, fil in enumerate(files):
     out.write(fil+'\t'+str(min(scores.keys()))+'\n')
 out.close()
 print S, len(S)
+import matplotlib
+matplotlib.use('Agg')
 import pylab as pl
 pl.hist(S,bins=100,normed=0,linewidth=0)
-pl.show()
-
-
-
+pl.savefig('score_distribution.pdf')
 
 #####################################################
 ### --- Analyze violations
@@ -144,19 +143,15 @@ for z, fil in enumerate(files):
         print z,fil, score, violrst, otherscores[score]
         Scores.append( otherscores[score] )
     
-import pylab as pl
 pl.plot(X,Y,'k.')
-pl.show()
+pl.savefig('violations.pdf')
 
 V = Analysis.violation_counts
 pl.bar(range(len(V)),sorted(V.values()))
 print V,len(V),'1111111'
 print
 print Scores
-pl.show()
-
-
-
+pl.savefig('violation_counts.pdf')
 
 
 #####################################################
