@@ -45,13 +45,13 @@ def make_topology():
     if 4 in activated_components:
 
       simo.add_component_name("tfb1")
-      simo.autobuild_model("tfb1",'../inputs/TFB1_2-115.pdb',"A",resolutions=[1,30],resrange=(1,642), missingbeadsize=30,color=60./360,attachbeads=True)
+      simo.autobuild_model("tfb1",'../inputs/TFB1_2-115.pdb',"A",resolutions=[1,30],resrange=(2,642), missingbeadsize=30,color=60./360,attachbeads=True)
       simo.setup_component_sequence_connectivity("tfb1", resolution=30)
 
       simo.add_component_name("tfb2")
       #simo.autobuild_model("tfb2",'../inputs/TFB2_1-168.pdb',"A",resolutions=[1,30],resrange=(1,170), missingbeadsize=30,color=185./360,attachbeads=True)
       #simo.autobuild_model("tfb2",'../inputs/TFB2_186-417.pdb',"A",resolutions=[1,30],resrange=(171,417), missingbeadsize=30,color=185./360,attachbeads=True)
-      simo.autobuild_model("tfb2",'../inputs/TFB2_392-513.pdb',"A",resolutions=[1,30],resrange=(418,513), missingbeadsize=30,color=185./360,attachbeads=True)
+      simo.autobuild_model("tfb2",'../inputs/TFB2_392-513.pdb',"A",resolutions=[1,30],resrange=(1,513), missingbeadsize=30,color=185./360,attachbeads=True)
       simo.setup_component_sequence_connectivity("tfb2", resolution=30)
 
       simo.add_component_name("tfb4")
