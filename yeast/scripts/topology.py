@@ -59,7 +59,7 @@ def make_topology():
       simo.setup_component_sequence_connectivity("tfb4", resolution=30)
 
       simo.add_component_name("tfb5")
-      simo.autobuild_model("tfb5",'../inputs/TFB5.pdb',"B",resolutions=[1,30],resrange=(1,72), missingbeadsize=30,color=0.,attachbeads=True)
+      simo.autobuild_model("tfb5",'../inputs/TFB5.pdb',"B",resolutions=[1,30],resrange=(2,72), missingbeadsize=30,color=0.,attachbeads=True)
       simo.setup_component_sequence_connectivity("tfb5", resolution=30)
 
       simo.add_component_name("ssl1")
