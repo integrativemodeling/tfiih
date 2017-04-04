@@ -57,9 +57,15 @@ def upgrade_component(comp):
             res30.add_child(c)
         else:
             raise ValueError("Don't know what to do with %s" % name)
-    comp.add_child(beads)
-    comp.add_child(res1)
-    comp.add_child(res30)
+
+    if comp.get_name() in ('tfb1', 'tfb5'):
+        comp.add_child(res1)
+        comp.add_child(res30)
+        comp.add_child(beads)
+    else:
+        comp.add_child(beads)
+        comp.add_child(res1)
+        comp.add_child(res30)
 
 m = IMP.Model()
 
