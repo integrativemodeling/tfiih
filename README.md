@@ -57,7 +57,7 @@ distance matrix produces the actual clusters.
 
 _Author(s)_: Peter Cimermančič, Shruthi Viswanath, Riccardo Pellarin, Charles Greenberg
 
-_Date_: October 6th, 2014
+_Date_: September 3rd, 2015
 
 _License_: [LGPL](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html).
 This library is free software; you can redistribute it and/or
@@ -65,9 +65,9 @@ modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
 version 2 of the License, or (at your option) any later version.
 
-_Testable_: Yes.
+_Last known good IMP version_: [![build info](https://integrativemodeling.org/systems/?sysstat=14&branch=master)](http://integrativemodeling.org/systems/) [![build info](https://integrativemodeling.org/systems/?sysstat=14&branch=develop)](http://integrativemodeling.org/systems/)
 
-_Parallelizeable_: Yes
+_Testable_: Yes.
 
 _Publications_:
  - J. Luo, P. Cimermancic, S. Viswanath, C. Ebmeier, B. Kim, M. Dehecq,
