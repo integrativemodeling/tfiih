@@ -216,8 +216,6 @@ ofile.close()
 ### --- Get clustered heat map  (Manual)
 #####################################################
 # Note that this only computes the all vs all RMSD matrix for top scoring models 
-# To do the actual clustering we store the output pkl file and use clustering.py
-# Clustering.py is using kmeans as it is more robust
 Clusters = analysis.Clustering()
 for cnt,fil in enumerate(files): 
 
@@ -268,9 +266,10 @@ print(len(Clusters.all_coords.keys()))
 
 print("Global clustered heat map, not aligned")
 Clusters.dist_matrix()
-# these two were removed because we made analysis take in the filename for cluster file or pickle file
-#os.rename("tmp_clustering.pdf", "Seh1_Sec13_global.pdf")
-#os.remove("tmp_cluster_493.pkl") #info for plotting, later on. Also contains list of clusters. 
+# To do the actual clustering we store the output pkl file and use clustering.py
+# clustering.py is using kmeans as it is more robust
+with open('cluster_run%d.pkl' % run_number, 'wb') as fh:
+    pickle.dump((Clusters.all_coords.keys(),Clusters.get_dist_matrix()), fh)
 
 """
 # This is needed for the analysis steps that depend on clustering

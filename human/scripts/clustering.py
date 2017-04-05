@@ -1,19 +1,22 @@
+from __future__ import print_function, absolute_import
 import numpy as np
 import scipy
+import matplotlib
+matplotlib.use('Agg')
 import pylab as pl
 import pickle
 from scipy.cluster.hierarchy import linkage, dendrogram
 from sklearn.cluster import KMeans
 import os,sys,string
 
-seed=sys.argv[1]
-inpPrefix='cluster_run'+seed
+run_number = 1
+inpPrefix='cluster_run%d' % run_number
 
 data = open(inpPrefix+'.pkl')
 K,M = pickle.load(data)
 data.close()
 
-print M.max()
+print(M.max())
 
 # result from hierarchical clustering
 ax = pl.subplot(311)
@@ -35,17 +38,17 @@ l=ax.imshow(M[R][:,R], interpolation='nearest')
 clusters=list(clusters)
 Clusters = {}
 for c in set(clusters):
-	print c,clusters.count(c),
+	print(c,clusters.count(c))
 	r = list(np.argwhere(clusters==c).T[0])
 	m = M[r][:,r] 
 	cls= [K[i] for i in r]
 	if clusters.count(c)>1:
-	  print np.sum(m) / (len(m)**2 - len(m))
+	  print(np.sum(m) / (len(m)**2 - len(m)))
 	  Clusters[c] = [r,cls,np.sum(m) / (len(m)**2 - len(m))]	
 	else:
 	  Clusters[c] = [r,cls,0.0]
-	  print "Single member cluster: how on earth do you expect me to calculate precision? Are you in your senses?"
-pl.show()
+	  print("Single member cluster: how on earth do you expect me to calculate precision? Are you in your senses?")
+pl.savefig('clusters.pdf')
 
 
 # will this give results equivalent to just clustering 
