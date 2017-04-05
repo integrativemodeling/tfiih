@@ -196,8 +196,6 @@ for cnt,fil in enumerate(files):
         m.update()
         #output.write_rmf(rmffile,1); output.close_rmf(rmffile); exit()
 
-        Clusters.set_prot(prot)
-
         # set alignment template (if global, list all proteins, or just a few for local)   
         ''' 
         template = {}
@@ -217,7 +215,7 @@ for cnt,fil in enumerate(files):
             coords = np.array([np.array(IMP.core.XYZ(i).get_coordinates()) for i in parts])
             Coords[pr] = coords  
 
-        Clusters.fill(fil+'.'+str(frame_number), Coords, alignment=0)
+        Clusters.fill(fil+'.'+str(frame_number), Coords)
 
         print cnt,fil,score,frame_number
     #if cnt==1: break
