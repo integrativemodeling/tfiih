@@ -304,7 +304,7 @@ for z, fil in enumerate(files):
         IMP.rmf.load_frame(rh, frame_number)
         m.update()
         
-        ContactMap.set_prot(prot)
+        ContactMap.prot = prot
     
         ContactMap.get_subunit_coords(fil+'.'+str(frm))
     print z,fil
