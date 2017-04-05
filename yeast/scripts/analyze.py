@@ -319,41 +319,41 @@ ContactMap.dist_matrix(skip_cmap=0, skip_xl=0, outname='ContactMap_cluster')
 #####################################################
 ### ---- Get global or local density map
 #####################################################
-costum_ranges ={'kin28':[['kin28',1,-1]],
-                'ccl1' :[['ccl1',1,-1]],
-                'tfb3' :[['tfb3d1',1,142],['tfb3d2',143,-1]],
-                'rad3' :[['rad3d1',1,235],['rad3d2',236,452],['rad3d3',453,-1]],
-                'ssl2' :[['ssl2d1',1,297],['ssl2d2',298,538],['ssl2d3',538,712],['ssl2d4',713,-1]],
-                'ssl1' :[['ssl1d1',1,122],['ssl1d2',123,302],['ssl1d3',386,-1]],
-                'tfb1' :[['tfb1d1',2,115],['tfb1d2',116,400],['tfb1d3',401,-1]],
-                'tfb2' :[['tfb2d1',1,168],['tfb2d2',186,417],['tfb2d3',418,-1]],
-                'tfb4' :[['tfb4d1',1,250],['tfb4d2',251,-1]],
-                'tfb5' :[['tfb5',2,-1]]}
+custom_ranges ={'kin28':[(1,-1,'kin28')],
+                'ccl1' :[(1,-1,'ccl1')],
+                'tfb3' :[(1,142,'tfb3d1'),(143,-1,'tfb3d2')],
+                'rad3' :[(1,235,'rad3d1'),(236,452,'rad3d2'),(453,-1,'rad3d3')],
+                'ssl2' :[(1,297,'ssl2d1'),(298,538,'ssl2d2'),(538,712,'ssl2d3'),(713,-1,'ssl2d4')],
+                'ssl1' :[(1,122,'ssl1d1'),(123,302,'ssl1d2'),(386,-1,'ssl1d3')],
+                'tfb1' :[(2,115,'tfb1d1'),(116,400,'tfb1d2'),(401,-1,'tfb1d3')],
+                'tfb2' :[(1,168,'tfb2d1'),(186,417,'tfb2d2'),(418,-1,'tfb2d3')],
+                'tfb4' :[(1,250,'tfb4d1'),(251,-1,'tfb4d2')],
+                'tfb5' :[(2,-1,'tfb5')]}
 
 
-costum_ranges ={  # these domains are from the paper
-                'kin28' :[['kin28_nlobe',1,88],['kin28_clobe',89,-1]],
+custom_ranges ={  # these domains are from the paper
+                'kin28' :[(1,88,'kin28_nlobe'),(89,-1,'kin28_clobe')],
 
-                'ccl1' :[['ccl1_n',1,206],['ccl1_c',207,-1]],
+                'ccl1' :[(1,206,'ccl1_n'),(207,-1,'ccl1_c')],
 
-                'tfb3' :[['tfb3_n',1,142],['tfb3_latch',142,-1]],
+                'tfb3' :[(1,142,'tfb3_n'),(142,-1,'tfb3_latch')],
 
-                'rad3' :[['rad3d1',1,246],['rad3d2',247,440],['rad3d3',441,701],['rad3d4',702,-1]],
+                'rad3' :[(1,246,'rad3d1'),(247,440,'rad3d2'),(441,701,'rad3d3'),(702,-1,'rad3d4')],
                 
-                'ssl2' :[['ssl2d1',1,350],['ssl2d2',351,518],['ssl2d3',519,714],['ssl2d4',715,-1]],
+                'ssl2' :[(1,350,'ssl2d1'),(351,518,'ssl2d2'),(519,714,'ssl2d3'),(715,-1,'ssl2d4')],
            
-		'ssl1' :[['ssl1d1',1,309],['ssl1d2',310,-1]],
+		'ssl1' :[(1,309,'ssl1d1'),(310,-1,'ssl1d2')],
                 
-                'tfb1' :[['tfb1d1',2,115],['tfb1d2',116,332],['tfb1d3',333,546],['tfb1d4',547,-1]],
+                'tfb1' :[(2,115,'tfb1d1'),(116,332,'tfb1d2'),(333,546,'tfb1d3'),(547,-1,'tfb1d4')],
                 
-                'tfb2' :[['tfb2d1',1,262],['tfb2d2',263,432],['tfb2d3',433,-1]],
+                'tfb2' :[(1,262,'tfb2d1'),(263,432,'tfb2d2'),(433,-1,'tfb2d3')],
                 
-                'tfb4' :[['tfb4d1',1,250],['tfb4d2',251,-1]],
+                'tfb4' :[(1,250,'tfb4d1'),(251,-1,'tfb4d2')],
                 
-                'tfb5' :[['tfb5',2,-1]]}
+                'tfb5' :[(2,-1,'tfb5')]}
 
 
-DensModule = analysis.GetModelDensity(margin=50., voxel=5., costum_ranges=costum_ranges)
+DensModule = analysis.GetModelDensity(resolution=5., custom_ranges=custom_ranges)
 for z, fil in enumerate(files):
 
     data = open(fil)
@@ -390,8 +390,8 @@ for z, fil in enumerate(files):
             coords = np.array([np.array(IMP.core.XYZ(i).get_coordinates()) for i in parts])
             Coords[pr.get_name()] = coords  
         '''
-        DensModule.fill(prot, alignment=0)
+        DensModule.add_subunits_density(prot)
     print z,fil,score#,max(DensModule.densities[DensModule.densities.keys()[0]])
 
 #print len(DensModule.densities[DensModule.densities.keys()[0]])
-DensModule.write_mrc('tfiih_cluster_1')
+DensModule.write_mrc()
