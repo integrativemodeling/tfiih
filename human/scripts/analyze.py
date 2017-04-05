@@ -371,32 +371,43 @@ ContactMap.add_xlinks('../inputs/Ranish_Kornberg_thiih_xlinks_human.txt',
                       identification_string='')
 ContactMap.dist_matrix(skip_cmap=0, skip_xl=0, outname='ContactMap_all_Matrix_CM')
 
-"""
 #####################################################
 ### ---- Get global or local density map
 #####################################################
-costum_ranges ={  # these domains are from the paper #TODO modify for human
-                'kin28' :[['kin28_nlobe',1,96],['kin28_clobe',97,-1]],
+custom_ranges ={  # these domains are from the paper #TODO modify for human
+                'kin28' :[(1,96,'kin28_nlobe'),(97,-1,'kin28_clobe')],
 
-                'ccl1' :[['ccl1_n',1,155],['ccl1_c',156,-1]],
+                'ccl1' :[(1,155,'ccl1_n'),(156,-1,'ccl1_c')],
 
-                'tfb3' :[['tfb3_n',1,132],['tfb3_latch',133,-1]],
+                'tfb3' :[(1,132,'tfb3_n'),(133,-1,'tfb3_latch')],
                 
-                'rad3' :[['rad3d1',1,245],['rad3d2',246,438],['rad3d3',439,701],['rad3d4',702,-1]],
-                'ssl1' :[['ssl1d1',1,240],['ssl1d2',241,-1]],
+                'rad3' :[(1,245,'rad3d1'),(246,438,'rad3d2'),(439,701,'rad3d3'),(702,-1,'rad3d4')],
+                'ssl1' :[(1,240,'ssl1d1'),(241,-1,'ssl1d2')],
                 
-                'ssl2' :[['ssl2d1',1,304],['ssl2d2',305,471],['ssl2d3',472,674],['ssl2d4',675,-1]],
+                'ssl2' :[(1,304,'ssl2d1'),(305,471,'ssl2d2'),(472,674,'ssl2d3'),(675,-1,'ssl2d4')],
            
 		             
-                'tfb1' :[['tfb1d1',1,107],['tfb1d2',108,254],['tfb1d3',255,457],['tfb1d4',458,-1]],
+                'tfb1' :[(1,107,'tfb1d1'),(108,254,'tfb1d2'),(255,457,'tfb1d3'),(458,-1,'tfb1d4')],
                 
-                'tfb2' :[['tfb2d1',1,274],['tfb2d2',275,381],['tfb2d3',382,-1]],
+                'tfb2' :[(1,274,'tfb2d1'),(275,381,'tfb2d2'),(382,-1,'tfb2d3')],
                 
-                'tfb4' :[['tfb4d1',1,230],['tfb4d2',231,-1]], # in keeping with the yeast case which is 8 residues before the VWA domain actually ends
+                'tfb4' :[(1,230,'tfb4d1'),(231,-1,'tfb4d2')], # in keeping with the yeast case which is 8 residues before the VWA domain actually ends
                 
-                'tfb5' :[['tfb5',2,-1]]}
+                'tfb5' :[(2,-1,'tfb5')]}
+global_custom_ranges ={
+                'kin28' :[(1,-1,'kin28')],
+                'ccl1' :[(1,-1,'ccl1')],
+                'tfb3' :[(1,-1,'tfb3')],
+                'rad3' :[(1,-1,'rad3')],
+                'ssl1' :[(1,-1,'ssl1')],
+                'ssl2' :[(1,-1,'ssl2')],
+                'tfb1' :[(1,-1,'tfb1')],
+                'tfb2' :[(1,-1,'tfb2')],
+                'tfb4' :[(1,-1,'tfb4')],
+                'tfb5' :[(1,-1,'tfb5')]}
 
-DensModule = analysis.GetModelDensity(margin=50., voxel=5.)  # margin is for making box bigger
+DensModule = analysis.GetModelDensity(custom_ranges=global_custom_ranges,
+                                      resolution=5.)
 #DensModule = analysis.GetModelDensity(margin=50., voxel=5., costum_ranges=costum_ranges)
 
 
@@ -419,7 +430,7 @@ for z, fil in enumerate(files):
 
     # load the frame
     rx = int(fil.split('_')[-1].split('.')[0])
-    rh= RMF.open_rmf_file('rmf/models_%i.0.rmf' % (rx ))
+    rh= RMF.open_rmf_file_read_only('../outputs/models_%i.0.rmf' % (rx ))
     IMP.rmf.link_hierarchies(rh, [prot])
 
     for frm,score in enumerate(sorted(scores.keys())[:1]):
@@ -428,8 +439,10 @@ for z, fil in enumerate(files):
         IMP.rmf.load_frame(rh, frame_number)
         m.update()
 
-        DensModule.fill(prot, alignment=0)
-    print(z,fil,score #,max(DensModule.densities[DensModule.densities.keys()[0]]))
+        DensModule.add_subunits_density(prot)
+    print(z,fil,score)#,max(DensModule.densities[DensModule.densities.keys()[0]]))
+
+DensModule.write_mrc()
 
 #print(len(DensModule.densities[DensModule.densities.keys()[0]]))
 
@@ -447,6 +460,3 @@ for z, fil in enumerate(files):
 
 # for dominant half of single cluster, with domain splits
 #DensModule.write_mrc('tfiih_human_kinase_domain_split_dominant_cluster_run%d' % run_number)
-exit()
-"""
-
