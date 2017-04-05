@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+
+from __future__ import print_function, absolute_import
 import IMP
 import IMP.core
 import IMP.base
@@ -9,6 +11,7 @@ import os,sys
 import IMP.rmf
 import RMF
 
+import topology
 import IMP.pmi.restraints as restraints
 import IMP.pmi.representation as representation
 import IMP.pmi.tools as tools
@@ -16,111 +19,6 @@ import IMP.pmi.samplers as samplers
 import IMP.pmi.output as output
 import IMP.pmi.analysis as analysis
 
-
-nframes=5000 
-xlinkAmplitude=17  
-
-ncycl=100  #number of montecarlo steps cycles
-rbmaxtrans=0.7
-fbmaxtrans=0.7
-
-outputobjects=[]
-sampleobjects=[]
-
-'''
-#####################################################
-#read EM maps and centroid coordinates
-#####################################################
-map_kinase = IMP.em.read_map('kinase.mrc', IMP.em.MRCReaderWriter())
-map_rad3 = IMP.em.read_map('rad3.mrc', IMP.em.MRCReaderWriter())
-map_ssl2 = IMP.em.read_map('ssl2.mrc', IMP.em.MRCReaderWriter())
-map_tfb = IMP.em.read_map('tfb.mrc', IMP.em.MRCReaderWriter())
-'''
-
-#####################################################
-#create hierarchies and rigid bodies and flexible parts
-#####################################################
-
-m=IMP.Model()
-simo=representation.SimplifiedModel(m, upperharmonic=False, disorderedlength=True)
-
-# --- Get atomic models available
-# Sub component 1: Kinase 
-simo.add_component_name("ccl1")
-simo.add_pdb_and_intervening_beads("ccl1",'KIN28_CCL1.pdb',"B",resolutions=[1,30],resrange=(1,323),beadsize=30,color=60./360,attachbeads=True)
-simo.setup_component_sequence_connectivity("ccl1", resolution=30)
-
-simo.add_component_name("kin28")
-simo.add_pdb_and_intervening_beads("kin28",'KIN28_CCL1.pdb',"A",resolutions=[1,30],resrange=(1,346), beadsize=30,color=185./360,attachbeads=True)
-simo.setup_component_sequence_connectivity("kin28", resolution=30)
-
-simo.add_component_name("tfb3")
-simo.add_pdb_and_intervening_beads("tfb3",'TFB3.pdb',"A",resolutions=[1,30],resrange=(1,309), beadsize=30,color=285./360,attachbeads=True)
-simo.setup_component_sequence_connectivity("tfb3", resolution=30)
-
-# Sub component 2: Rad3
-simo.add_component_name("rad3")
-simo.add_pdb_and_intervening_beads("rad3",'RAD3.pdb'," ",resolutions=[1,30],resrange=(1,760), beadsize=30,color=0.4,attachbeads=True)
-simo.setup_component_sequence_connectivity("rad3", resolution=30)
-
-# Sub component 3: Ssl2 and Tfiicore
-simo.add_component_name("ssl2")
-simo.add_pdb_and_intervening_beads("ssl2",'SSL2.pdb'," ",resolutions=[1,30],resrange=(1,782), beadsize=30,color=0.0,attachbeads=True)
-simo.setup_component_sequence_connectivity("ssl2", resolution=30)
-  
-simo.add_component_name("tfb1")
-simo.add_pdb_and_intervening_beads("tfb1",'TFB1.pdb'," ",resolutions=[1,30],resrange=(1,548), beadsize=30,color=1.0,attachbeads=True)
-simo.setup_component_sequence_connectivity("tfb1", resolution=30)
-
-simo.add_component_name("tfb2")
-simo.add_pdb_and_intervening_beads("tfb2",'TFB2_TFB5.pdb',"A",resolutions=[1,30],resrange=(1,462), beadsize=30,color=0.9,attachbeads=True)
-simo.setup_component_sequence_connectivity("tfb2", resolution=30)
-
-simo.add_component_name("tfb4")
-simo.add_pdb_and_intervening_beads("tfb4",'TFB4.pdb'," ",resolutions=[1,30],resrange=(1,308), beadsize=30,color=0.8,attachbeads=True)
-simo.setup_component_sequence_connectivity("tfb4", resolution=30)
-
-simo.add_component_name("tfb5")
-simo.add_pdb_and_intervening_beads("tfb5",'TFB2_TFB5.pdb',"B",resolutions=[1,30],resrange=(1,71), beadsize=30,color=0.,attachbeads=True)
-simo.setup_component_sequence_connectivity("tfb5", resolution=30)
-
-simo.add_component_name("ssl1")
-simo.add_pdb_and_intervening_beads("ssl1",'SSL1.pdb'," ",resolutions=[1,30],resrange=(1,395), beadsize=30,color=0.6,attachbeads=True)
-simo.setup_component_sequence_connectivity("ssl1", resolution=30)
-
-# --- set rigid bodies
-# Sub component 1: Kinase
-emxk,emyk,emzk = 80.35, -23.66, 73.14   
-simo.set_rigid_bodies(["ccl1","kin28"],(emxk,emyk,emzk))
-
-# Sub component 2: Tfb3
-emxk,emyk,emzk = 17.25, -41.81, -21.93   
-simo.set_rigid_bodies(["tfb3"],(emxk,emyk,emzk))
-
-# Sub component 2: Rad3
-emxr,emyr,emzr = 37.25, 14.39, -1.38
-simo.set_rigid_bodies(["rad3"],(emxr,emyr,emzr))
-
-# Sub component 3: Ssl2 + Tfiihcore
-emxt,emyt,emzt = -29.65, -1.27, -0.32
-simo.set_rigid_bodies([("tfb2"),("tfb5")], (emxt,emyt,emzt))
-simo.set_rigid_bodies(["tfb1"], (emxt,emyt,emzt))
-simo.set_rigid_bodies(["tfb4"],(emxt,emyt,emzt))
-simo.set_rigid_bodies(["ssl1"],(emxt,emyt,emzt))
-simo.set_rigid_bodies(["ssl2"],(emxt,emyt,emzt))
-
-# --- set simulation params
-simo.set_floppy_bodies()
-d=simo.get_particles_to_sample()
-simo.set_rigid_bodies_max_trans(rbmaxtrans)
-simo.set_floppy_bodies_max_trans(fbmaxtrans)
-
-#--- re-orient initial orientation only
-simo.shuffle_configuration(translate=False)
-
-prot=simo.get_hierarchy()
-outputobjects.append(simo)
-sampleobjects.append(simo)
 
 ##simo.draw_hierarchy_composition()
 #####################################################
@@ -132,7 +30,10 @@ import numpy as np
 import glob
 import pylab as pl
 
-allStatFiles = glob.glob('/salilab/park1/shruthi/tfiih/tfb3changed_humanCAK/stat/stat*.dat') 
+allStatFiles = glob.glob('../outputs/stat*.dat')
+
+m, simo = topology.make_topology()
+prot = simo.prot
 
 print allStatFiles
 scoreCutoff=-4230 # for top 10% or about 100 models #TODO change this as needed
