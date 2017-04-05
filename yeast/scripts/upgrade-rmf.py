@@ -33,36 +33,6 @@ def fix_fragment_names(res, comp_name):
     for c in res.get_children():
         c.set_name(c.get_name().replace('-', '_'))
 
-def handle_ssl2_res1(m, res1, beads, c):
-    """Special handling for the 298-538 resolution=1 part of ssl2"""
-    # Old RMF files represent this region with a single 298-538 fragment,
-    # even though the input file has gaps at 308-311, 318-322 and 340-344.
-    # Split into multiple fragments and create an (approximated) bead for
-    # each gap.
-    children = {}
-    for child in c.get_children():
-        c.remove_child(child)
-        children[int(child.get_name())] = child
-    for fragment_range in [(298, 307), (312, 317), (323, 339), (345, 538)]:
-        name = 'ssl2_%d-%d_pdb' % fragment_range
-        f = IMP.atom.Hierarchy.setup_particle(IMP.Particle(m))
-        f.set_name(name)
-        res1.add_child(f)
-        for i in range(fragment_range[0], fragment_range[1] + 1):
-            f.add_child(children[i])
-    for bead_range in [(308, 311), (318, 322), (340, 344)]:
-        name = 'ssl2_%d-%d_bead_floppy_body_rigid_body_member' % bead_range
-        f = IMP.atom.Hierarchy.setup_particle(IMP.Particle(m))
-        f.set_name(name)
-        beads.add_child(f)
-        # Approximate the coordinates as the average of the residues on
-        # either side of the gap
-        xyz1 = IMP.core.XYZ(children[bead_range[0] - 1]).get_coordinates()
-        xyz2 = IMP.core.XYZ(children[bead_range[1] + 1]).get_coordinates()
-        s = IMP.algebra.Sphere3D((xyz1 + xyz2) / 2., 1.)
-        IMP.core.XYZR.setup_particle(f, s)
-    IMP.atom.destroy(c)
-
 def upgrade_component(comp):
     beads = IMP.atom.Hierarchy.setup_particle(IMP.Particle(m))
     beads.set_name("Beads")
@@ -80,10 +50,7 @@ def upgrade_component(comp):
         elif name.endswith('_Res:1'):
             fix_residue_names(c, comp.get_name())
             c.set_name(name[:-6])
-            if name == 'ssl2_298-538_pdb_Res:1':
-                handle_ssl2_res1(m, res1, beads, c)
-            else:
-                res1.add_child(c)
+            res1.add_child(c)
         elif name.endswith('_Res:30'):
             fix_fragment_names(c, comp.get_name())
             c.set_name(name[:-7])

@@ -70,7 +70,19 @@ def make_topology():
 
     if 1 in activated_components:
       simo.add_component_name("ssl2")
-      simo.autobuild_model("ssl2",'../inputs/fit_gtfs_3.pdb',"C",resolutions=[1,30],resrange=(1,538), missingbeadsize=30,color=0.0,attachbeads=True)
+      # The original modeling ignored the gaps 308-311, 318-322 and 340-344.
+      # To reproduce the modeling as closely as possible, force modern PMI
+      # to ignore these gaps too:
+      old_rg_hier = IMP.pmi.tools.get_residue_gaps_in_hierarchy
+      def dummy_rg_hier(hierarchy, start, end):
+          # Return only the first two entries (leading gap, the missing
+          # residues at the N terminus; plus the pdb range)
+          return [[start, 297, 'gap'], [298, end, 'cont']]
+      try:
+          IMP.pmi.tools.get_residue_gaps_in_hierarchy = dummy_rg_hier
+          simo.autobuild_model("ssl2",'../inputs/fit_gtfs_3.pdb',"C",resolutions=[1,30],resrange=(1,538), missingbeadsize=30,color=0.0,attachbeads=True)
+      finally:
+          IMP.pmi.tools.get_residue_gaps_in_hierarchy = old_rg_hier
       simo.autobuild_model("ssl2",'../inputs/fit_gtfs_3.pdb',"D",resolutions=[1,30],resrange=(539,843), missingbeadsize=30,color=0.0,attachbeads=True)
       simo.setup_component_sequence_connectivity("ssl2", resolution=30)
 
