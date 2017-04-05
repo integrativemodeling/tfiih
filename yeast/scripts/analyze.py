@@ -41,9 +41,8 @@ prot = simo.prot
 for z, fil in enumerate(files[:1]):
 
     print(fil)
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     scores = {}
@@ -81,26 +80,24 @@ exit()
 #####################################################
 
 S = []
-out = open('scores.out','w')
-for z, fil in enumerate(files):
+with open('scores.out','w') as out:
+    for z, fil in enumerate(files):
 
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+        with open(fil) as data:
+            D = data.readlines()
 
-    # find frame with the lowest score
-    scores = {}
-    H = eval(D[0].strip())
-    H = dict([(H[c],c) for c in H])
+        # find frame with the lowest score
+        scores = {}
+        H = eval(D[0].strip())
+        H = dict([(H[c],c) for c in H])
 
-    for i,d in enumerate(D[1:]):
-        dct = eval(d.strip('\n'))
-        score = float(dct[H['SimplifiedModel_Total_Score_None']])
-        scores[score] = i
-    S.append(min(scores.keys()))
-    print(fil, min(scores.keys()))
-    out.write(fil+'\t'+str(min(scores.keys()))+'\n')
-out.close()
+        for i,d in enumerate(D[1:]):
+            dct = eval(d.strip('\n'))
+            score = float(dct[H['SimplifiedModel_Total_Score_None']])
+            scores[score] = i
+        S.append(min(scores.keys()))
+        print(fil, min(scores.keys()))
+        out.write(fil+'\t'+str(min(scores.keys()))+'\n')
 print(S, len(S))
 import matplotlib
 matplotlib.use('Agg')
@@ -117,9 +114,8 @@ X,Y=[],[]
 Scores = []
 for z, fil in enumerate(files):
 
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     scores = {}
@@ -170,9 +166,8 @@ pl.savefig('violation_counts.pdf')
 Clusters = analysis.Clustering()
 for cnt,fil in enumerate(files):
 
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     H = eval(D[0].strip())
@@ -241,9 +236,8 @@ files = files # will use all this time
 #####################################################
 for z, fil in enumerate(files):
 
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     scores = {}
@@ -283,9 +277,8 @@ ContactMap.set_prot(prot)
 print(files)
 for z, fil in enumerate(files):
 
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     scores = {}
@@ -357,9 +350,8 @@ custom_ranges ={  # these domains are from the paper
 DensModule = analysis.GetModelDensity(resolution=5., custom_ranges=custom_ranges)
 for z, fil in enumerate(files):
 
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     #scores = {}

@@ -82,9 +82,8 @@ class GaussianEMRestraint():
 
 
 
-        data = open(map_anchors_fn)
-        D = data.readlines()
-        data.close()
+        with open(map_anchors_fn) as data:
+            D = data.readlines()
         dcoords={}
         for d in D:
             d=d.strip().split('|')
