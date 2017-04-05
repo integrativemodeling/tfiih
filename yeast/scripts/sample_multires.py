@@ -117,7 +117,7 @@ nrmffiles=1
 nframes=20 if '--test' in sys.argv else 20000
 bestscore, step = 1000000000000000, 0
 for k in range(nrmffiles):
-  rmffile="../outputs/models_%d.0.rmf" % run_number
+  rmffile="../outputs/models_%d.%d.rmf" % (run_number, k)
   output.init_rmf(rmffile, [prot])
   output.add_restraints_to_rmf(rmffile,[xl])
   rset = IMP.pmi.tools.get_restraint_set(m)
