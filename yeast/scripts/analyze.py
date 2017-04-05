@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function, absolute_import
 import IMP
 import IMP.core
 import IMP.algebra
@@ -39,7 +40,7 @@ prot = simo.prot
 
 for z, fil in enumerate(files[:1]):
 
-    print fil
+    print(fil)
     data = open(fil)
     D = data.readlines()
     data.close()
@@ -53,7 +54,7 @@ for z, fil in enumerate(files[:1]):
         dct = eval(d.strip('\n'))
         score = float(dct[H['SimplifiedModel_Total_Score_None']])
         scores[score] = i
-        print i,score
+        print(i,score)
 
     # load the frame
     rx = int(fil.split('_')[-1].split('.')[0])
@@ -63,8 +64,8 @@ for z, fil in enumerate(files[:1]):
 
     # save the frame
     frame_number = scores[min(scores.keys())]
-    print
-    print scores[min(scores.keys())], min(scores.keys())
+    print()
+    print(scores[min(scores.keys())], min(scores.keys()))
     IMP.rmf.load_frame(rh, frame_number)
     m.update()
     output = output.Output()
@@ -97,10 +98,10 @@ for z, fil in enumerate(files):
         score = float(dct[H['SimplifiedModel_Total_Score_None']])
         scores[score] = i
     S.append(min(scores.keys()))
-    print fil, min(scores.keys())
+    print(fil, min(scores.keys()))
     out.write(fil+'\t'+str(min(scores.keys()))+'\n')
 out.close()
-print S, len(S)
+print(S, len(S))
 import matplotlib
 matplotlib.use('Agg')
 import pylab as pl
@@ -149,7 +150,7 @@ for z, fil in enumerate(files):
 
         violrst = Analysis.get_number_violated_restraints(score_dct)
         X.append(score); Y.append(violrst)
-        print z,fil, score, violrst, otherscores[score]
+        print(z,fil, score, violrst, otherscores[score])
         Scores.append( otherscores[score] )
     
 pl.plot(X,Y,'k.')
@@ -157,9 +158,9 @@ pl.savefig('violations.pdf')
 
 V = Analysis.violation_counts
 pl.bar(range(len(V)),sorted(V.values()))
-print V,len(V),'1111111'
-print
-print Scores
+print(V,len(V),'1111111')
+print()
+print(Scores)
 pl.savefig('violation_counts.pdf')
 
 
@@ -191,7 +192,7 @@ for cnt,fil in enumerate(files):
 
     for frm,score in enumerate(sorted(scores.keys())[:1]):
         frame_number = scores[score]
-        print frame_number, scores[score]
+        print(frame_number, scores[score])
         IMP.rmf.load_frame(rh, frame_number)
         m.update()
         #output.write_rmf(rmffile,1); output.close_rmf(rmffile); exit()
@@ -217,12 +218,12 @@ for cnt,fil in enumerate(files):
 
         Clusters.fill(fil+'.'+str(frame_number), Coords)
 
-        print cnt,fil,score,frame_number
+        print(cnt,fil,score,frame_number)
     #if cnt==1: break
-print Clusters.all_coords.keys()
-print len(Clusters.all_coords.keys())
+print(Clusters.all_coords.keys())
+print(len(Clusters.all_coords.keys()))
 
-print "Global clustered heat map, not aligned"
+print("Global clustered heat map, not aligned")
 Clusters.dist_matrix()
 #os.rename("tmp_clustering.pdf", "Seh1_Sec13_global.pdf")
 #os.remove("tmp_cluster_493.pkl")
@@ -268,7 +269,7 @@ for z, fil in enumerate(files):
         outp.write_pdb_from_model(prot,name='cluster_0_%i.pdb' % z)
     #exit()
 
-    print z,fil
+    print(z,fil)
 exit()
 """
 
@@ -279,7 +280,7 @@ exit()
 ContactMap = analysis.GetContactMap(distance=5.)
 ContactMap.set_prot(prot)
 
-print files
+print(files)
 for z, fil in enumerate(files):
 
     data = open(fil)
@@ -307,7 +308,7 @@ for z, fil in enumerate(files):
         m.update()
         
         ContactMap.get_subunit_coords(fil+'.'+str(frm))
-    print z,fil
+    print(z,fil)
 
 ContactMap.add_xlinks('../inputs/Ranish_Kornberg_thiih_xlinks.txt',
                       identification_string='')
@@ -391,7 +392,7 @@ for z, fil in enumerate(files):
             Coords[pr.get_name()] = coords  
         '''
         DensModule.add_subunits_density(prot)
-    print z,fil,score#,max(DensModule.densities[DensModule.densities.keys()[0]])
+    print(z,fil,score)#,max(DensModule.densities[DensModule.densities.keys()[0]])
 
-#print len(DensModule.densities[DensModule.densities.keys()[0]])
+#print(len(DensModule.densities[DensModule.densities.keys()[0]]))
 DensModule.write_mrc()

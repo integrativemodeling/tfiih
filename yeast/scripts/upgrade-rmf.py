@@ -12,7 +12,7 @@
       modules/rmf/src/restraint_io.cpp.
 """
 
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 import sys
 import os
 import IMP.rmf

@@ -1,3 +1,4 @@
+from __future__ import print_function, absolute_import
 import IMP.isd
 import IMP.atom
 import IMP.pmi.tools as tools
@@ -32,7 +33,7 @@ def get_particles_by_resolution(prot,resolution):
                     if not p in particles:
                         particles.append(p)
         else:
-            print "get_particles_by_resolution> WARNING residue %d in molecule %s is missing" % (nres,prot.get_name())
+            print("get_particles_by_resolution> WARNING residue %d in molecule %s is missing" % (nres,prot.get_name()))
 
     return list(particles)
 
@@ -77,7 +78,7 @@ class GaussianEMRestraint():
                 self.model_anchors=(list(set(model_anchors) & set(hierarchy_anchors)))
 
         for p in self.model_anchors:
-            print p.get_name()
+            print(p.get_name())
 
 
 
@@ -135,14 +136,14 @@ class GaussianEMRestraint():
 
         self.sigmaglobal=tools.SetupNuisance(self.m,self.sigmainit,
                  self.sigmamin,self.sigmamax,True).get_particle()
-        print 'setting up restraint'
+        print('setting up restraint')
 
         self.gaussianEM_restraint=IMP.isd.GaussianAnchorEMRestraint(
             self.model_anchors,self.model_sigmas,self.model_weights,
             self.density_anchors,self.density_sigmas,self.density_weights,
             self.sigmaglobal.get_particle(),self.cutoff_dist_for_container,
             self.rigid,self.tabexp)
-        print 'done setup'
+        print('done setup')
         self.rs = IMP.RestraintSet(self.m, 'GaussianEMRestraint')
         self.rs.add_restraint(self.gaussianEM_restraint)
 

@@ -1,3 +1,4 @@
+from __future__ import print_function, absolute_import
 import IMP
 import IMP.algebra
 import IMP.core
@@ -130,7 +131,7 @@ def make_topology():
         "shuffle configuration, used to restart the optimization"
         "it only works if rigid bodies were initialized"
         if len(simo.rigid_bodies)==0:
-            print "MultipleStates: rigid bodies were not intialized"
+            print("MultipleStates: rigid bodies were not intialized")
         hbbl=bounding_box_length/2
         ub = IMP.algebra.Vector3D(-hbbl,-hbbl,-hbbl)
         lb = IMP.algebra.Vector3D( hbbl, hbbl, hbbl)

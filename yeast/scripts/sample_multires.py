@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function, absolute_import
 import IMP
 import IMP.core
 import IMP.algebra
@@ -123,7 +124,7 @@ for k in range(nrmffiles):
 
   for i in range(nframes):
     mc.optimize(ncycl)
-    print mc.get_frame_number()
+    print(mc.get_frame_number())
     m.update()
     score = rset.evaluate(False)
 
@@ -131,7 +132,7 @@ for k in range(nrmffiles):
     output.set_output_entry("rmf_frame_index",step)
     if score < bestscore:
       output.write_stats2()
-      print '\tBest score: ',score
+      print('\tBest score: ',score)
       output.write_rmf(rmffile)
       bestscore = score
       step += 1
