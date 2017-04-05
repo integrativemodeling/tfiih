@@ -14,8 +14,8 @@ For the publication, the following versions of IMP and PMI were used:
    - `outputs`:
      - contains an example of output files (*.rmf and *.dat) from sampling
      - `models`:
-       - `subunits`: contains a chimera session file and solution density maps for all subunits
-       - `domain_decomposition`: contains a chimera session file and solution density maps for all domains
+       - `subunits`: contains a [Chimera](http://www.cgl.ucsf.edu/chimera/) session file and solution density maps for all subunits
+       - `domain_decomposition`: contains a Chimera session file and solution density maps for all domains
    - `scripts`: 
      - `sample_multires.py`: sampling script
      - `analyze.py`: script for analysis of the solutions
@@ -25,8 +25,8 @@ For the publication, the following versions of IMP and PMI were used:
    - `outputs`:
      - contains an example of output files (*.rmf and *.dat) from sampling
      - `models`:
-       - `subunits`: contains a chimera session file and solution density maps for all subunits
-       - `domain_decomposition`: contains a chimera session file and solution density maps for all domains
+       - `subunits`: contains a Chimera session file and solution density maps for all subunits
+       - `domain_decomposition`: contains a Chimera session file and solution density maps for all domains
    - `scripts`: 
      - `sample_multires.py`: sampling script
      - `analyze.py`: script for analysis of the solutions
