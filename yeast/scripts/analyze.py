@@ -309,7 +309,7 @@ for z, fil in enumerate(files):
         ContactMap.get_subunit_coords(fil+'.'+str(frm))
     print z,fil
 
-ContactMap.add_xlinks('Ranish_Kornberg_thiih_xlinks.txt')  
+ContactMap.add_xlinks('../inputs/Ranish_Kornberg_thiih_xlinks.txt')
 ContactMap.dist_matrix(skip_cmap=0, skip_xl=0, outname='ContactMap_cluster_%i' % int(sys.argv[-1]))
 
 
