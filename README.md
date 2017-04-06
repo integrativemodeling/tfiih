@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.495501.svg)](https://doi.org/10.5281/zenodo.495501)
+
 These scripts demonstrate the use of [IMP](https://integrativemodeling.org)
 and [PMI](https://github.com/salilab/pmi) in the modeling of the TFIIH complex
 using chemical cross-links and electron microscopy (EM) density maps.
@@ -5,6 +7,8 @@ using chemical cross-links and electron microscopy (EM) density maps.
 For the publication, the following versions of IMP and PMI were used:
 - IMP: git develop branch, git hash [c93138f](https://github.com/salilab/imp/tree/c93138f863070db03646bfb110b61e2547332b40)
 - PMI: git develop branch, git hash [c522e0a](https://github.com/salilab/pmi/tree/c522e0abc690afc49d33d34dded70d84ad4ec3a7)
+
+The files should also work with a recent version of IMP (see below).
 
 
 ## List of files and directories:
