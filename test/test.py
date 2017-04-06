@@ -40,7 +40,6 @@ class Tests(unittest.TestCase):
                     'bar_xlink_violation_counts_run1.png',
                     'violation_counts_alltopscoring_34A.txt',
                     'cluster_run1.pkl', 'ContactMap_all_Matrix_CM.pdf',
-                    'violation_counts.pdf', 'ContactMap_cluster.pdf',
                     'ccl1.mrc', 'rad3.mrc', 'ssl2.mrc', 'tfb2.mrc',
                     'tfb4.mrc', 'kin28.mrc', 'ssl1.mrc', 'tfb1.mrc',
                     'tfb3.mrc', 'tfb5.mrc'):
