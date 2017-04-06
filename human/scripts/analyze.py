@@ -47,9 +47,8 @@ files=allStatFiles
 for z, fil in enumerate(files[:1]):
 
     print(fil)
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     scores = {}
@@ -85,9 +84,8 @@ exit()
 for z, fil in enumerate(files[:1]):
 
     print(fil)
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     scores = {}
@@ -123,26 +121,24 @@ exit()
 #####################################################
 
 S = []
-out = open('scores.out','w')
-for z, fil in enumerate(files):
+with open('scores.out','w') as out:
+    for z, fil in enumerate(files):
 
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+        with open(fil) as data:
+            D = data.readlines()
 
-    # find frame with the lowest score
-    scores = {}
-    H = eval(D[0].strip())
-    H = dict([(H[c],c) for c in H]) # creates reverse dictionary
+        # find frame with the lowest score
+        scores = {}
+        H = eval(D[0].strip())
+        H = dict([(H[c],c) for c in H]) # creates reverse dictionary
 
-    for i,d in enumerate(D[1:]):
-        dct = eval(d.strip('\n'))
-        score = float(dct[H['SimplifiedModel_Total_Score_None']])
-        scores[score] = i
-    S.append(min(scores.keys()))
-    print(fil, min(scores.keys()))
-    out.write(fil+'\t'+str(min(scores.keys()))+'\n')
-out.close()
+        for i,d in enumerate(D[1:]):
+            dct = eval(d.strip('\n'))
+            score = float(dct[H['SimplifiedModel_Total_Score_None']])
+            scores[score] = i
+        S.append(min(scores.keys()))
+        print(fil, min(scores.keys()))
+        out.write(fil+'\t'+str(min(scores.keys()))+'\n')
 print(S, len(S))
 
 import matplotlib
@@ -160,9 +156,8 @@ X,Y=[],[]
 Scores=[]
 for z, fil in enumerate(files):
 
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     scores = {}
@@ -206,9 +201,8 @@ pl.bar(range(len(V)),sorted(V.values()))
 print(V,len(V),'1111111')
 pl.savefig('bar_xlink_violation_counts_run%d.png' % run_number)
 
-ofile=open('violation_counts_alltopscoring_34A.txt','w')
-ofile.write(str(V))
-ofile.close()
+with open('violation_counts_alltopscoring_34A.txt','w') as ofile:
+    ofile.write(str(V))
 
 #exit()
 
@@ -219,9 +213,8 @@ ofile.close()
 Clusters = analysis.Clustering()
 for cnt,fil in enumerate(files): 
 
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     H = eval(D[0].strip())
@@ -273,10 +266,9 @@ with open('cluster_run%d.pkl' % run_number, 'wb') as fh:
 
 """
 # This is needed for the analysis steps that depend on clustering
-infile = open('cluster_run%d.out' % run_number)
-dominantClusterNumber=0  # this is true for both independent runs
-Clusters = eval(infile.read())
-infile.close()
+with open('cluster_run%d.out' % run_number) as infile:
+    dominantClusterNumber=0  # this is true for both independent runs
+    Clusters = eval(infile.read())
 import sys
 
 files = [i.rsplit('.',1)[0] for i in Clusters[dominantClusterNumber][1]]
@@ -292,9 +284,8 @@ print(len(files))
 #####################################################
 for z, fil in enumerate(files):
 
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     scores = {}
@@ -332,9 +323,8 @@ numModels=0
 
 for z, fil in enumerate(files):
 
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     scores = {}
@@ -412,9 +402,8 @@ DensModule = analysis.GetModelDensity(custom_ranges=global_custom_ranges,
 
 for z, fil in enumerate(files):
 
-    data = open(fil)
-    D = data.readlines()
-    data.close()
+    with open(fil) as data:
+        D = data.readlines()
 
     # find frame with the lowest score
     H = eval(D[0].strip())
