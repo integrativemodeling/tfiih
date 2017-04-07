@@ -36,6 +36,8 @@ prot = simo.prot
 
 print(allStatFiles)
 scoreCutoff=-4230 # for top 10% or about 100 models #TODO change this as needed
+if '--test' in sys.argv:
+    scoreCutoff=0
 
 #allStatFiles =glob.glob('/salilab/park1/shruthi/tfiih/humanAnalysis/stats/stat_390.dat')
 files=allStatFiles

@@ -34,7 +34,7 @@ class Tests(unittest.TestCase):
         for out in ('../outputs/models_0.0.rmf', '../outputs/stat_0.dat'):
             self.assertExists(out)
 
-        p = subprocess.check_call(["python", 'analyze.py'])
+        p = subprocess.check_call(["python", 'analyze.py', '--test'])
         for out in ('scores.out', 'scores.pdf',
                     'score_vs_number_viol_restraints.png',
                     'bar_xlink_violation_counts_run1.png',
