@@ -17,7 +17,7 @@ def make_topology():
     #####################################################
 
     m=IMP.Model()
-    simo=representation.SimplifiedModel(m, upperharmonic=False, disorderedlength=True)
+    simo=representation.Representation(m, upperharmonic=False, disorderedlength=True)
 
 
 
