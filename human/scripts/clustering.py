@@ -12,7 +12,7 @@ import os,sys,string
 run_number = 1
 inpPrefix='cluster_run%d' % run_number
 
-data = open(inpPrefix+'.pkl')
+data = open(inpPrefix+'.pkl', 'rb')
 K,M = pickle.load(data)
 data.close()
 

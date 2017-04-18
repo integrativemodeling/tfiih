@@ -264,7 +264,8 @@ Clusters.dist_matrix()
 # To do the actual clustering we store the output pkl file and use clustering.py
 # clustering.py is using kmeans as it is more robust
 with open('cluster_run%d.pkl' % run_number, 'wb') as fh:
-    pickle.dump((Clusters.all_coords.keys(),Clusters.get_dist_matrix()), fh)
+    pickle.dump((list(Clusters.all_coords.keys()),
+                 Clusters.get_dist_matrix()), fh)
 
 """
 # This is needed for the analysis steps that depend on clustering
