@@ -19,20 +19,20 @@ def make_topology():
 
     # --- Get atomic models available
     # Sub component 1: Kinase 
-    simo.add_component_name("ccl1")
+    simo.create_component("ccl1")
     simo.autobuild_model("ccl1",'../inputs/KIN28_CCL1.pdb',"B",resolutions=[1,30],resrange=(1,323),missingbeadsize=30,color=60./360,attachbeads=True)
     simo.setup_component_sequence_connectivity("ccl1", resolution=30)
 
-    simo.add_component_name("kin28")
+    simo.create_component("kin28")
     simo.autobuild_model("kin28",'../inputs/KIN28_CCL1.pdb',"A",resolutions=[1,30],resrange=(1,346), missingbeadsize=30,color=185./360,attachbeads=True)
     simo.setup_component_sequence_connectivity("kin28", resolution=30)
 
-    simo.add_component_name("tfb3")
+    simo.create_component("tfb3")
     simo.autobuild_model("tfb3",'../inputs/TFB3.pdb',"A",resolutions=[1,30],resrange=(1,309), missingbeadsize=30,color=285./360,attachbeads=True)
     simo.setup_component_sequence_connectivity("tfb3", resolution=30)
 
     # Sub component 2: Rad3
-    simo.add_component_name("rad3")
+    simo.create_component("rad3")
     # The original modeling ignored gaps in this PDB.
     # To reproduce the modeling as closely as possible, force modern PMI
     # to ignore these gaps too:
@@ -49,7 +49,7 @@ def make_topology():
     simo.setup_component_sequence_connectivity("rad3", resolution=30)
 
     # Sub component 3: Ssl2 and Tfiicore
-    simo.add_component_name("ssl2")
+    simo.create_component("ssl2")
     # The original modeling ignored gaps in this PDB.
     # To reproduce the modeling as closely as possible, force modern PMI
     # to ignore these gaps too:
@@ -64,15 +64,15 @@ def make_topology():
         IMP.pmi.tools.get_residue_gaps_in_hierarchy = old_rg_hier
     simo.setup_component_sequence_connectivity("ssl2", resolution=30)
       
-    simo.add_component_name("tfb1")
+    simo.create_component("tfb1")
     simo.autobuild_model("tfb1",'../inputs/TFB1.pdb'," ",resolutions=[1,30],resrange=(1,548), missingbeadsize=30,color=1.0,attachbeads=True)
     simo.setup_component_sequence_connectivity("tfb1", resolution=30)
 
-    simo.add_component_name("tfb2")
+    simo.create_component("tfb2")
     simo.autobuild_model("tfb2",'../inputs/TFB2_TFB5.pdb',"A",resolutions=[1,30],resrange=(1,462), missingbeadsize=30,color=0.9,attachbeads=True)
     simo.setup_component_sequence_connectivity("tfb2", resolution=30)
 
-    simo.add_component_name("tfb4")
+    simo.create_component("tfb4")
     # The original modeling ignored gaps in this PDB.
     # To reproduce the modeling as closely as possible, force modern PMI
     # to ignore these gaps too:
@@ -87,7 +87,7 @@ def make_topology():
         IMP.pmi.tools.get_residue_gaps_in_hierarchy = old_rg_hier
     simo.setup_component_sequence_connectivity("tfb4", resolution=30)
 
-    simo.add_component_name("tfb5")
+    simo.create_component("tfb5")
     # The original modeling ignored gaps in this PDB.
     # To reproduce the modeling as closely as possible, force modern PMI
     # to ignore these gaps too:
@@ -102,7 +102,7 @@ def make_topology():
         IMP.pmi.tools.get_residue_gaps_in_hierarchy = old_rg_hier
     simo.setup_component_sequence_connectivity("tfb5", resolution=30)
 
-    simo.add_component_name("ssl1")
+    simo.create_component("ssl1")
     simo.autobuild_model("ssl1",'../inputs/SSL1.pdb'," ",resolutions=[1,30],resrange=(1,395), missingbeadsize=30,color=0.6,attachbeads=True)
     simo.setup_component_sequence_connectivity("ssl1", resolution=30)
 

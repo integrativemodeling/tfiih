@@ -23,54 +23,54 @@ def make_topology():
 
     if 1 in activated_components:
       
-      simo.add_component_name("ccl1")
+      simo.create_component("ccl1")
       simo.autobuild_model("ccl1",'../inputs/CCL1_48-393.pdb',"A",resolutions=[1,30],resrange=(1,393),missingbeadsize=30,color=1.0,attachbeads=True)
       simo.setup_component_sequence_connectivity("ccl1", resolution=30)
 
-      simo.add_component_name("kin28")
+      simo.create_component("kin28")
       simo.autobuild_model("kin28",'../inputs/KIN28_5-299.pdb',"A",resolutions=[1,30],resrange=(1,306), missingbeadsize=30,color=0.9,attachbeads=True)
       simo.setup_component_sequence_connectivity("kin28", resolution=30)
 
-      simo.add_component_name("tfb3")
+      simo.create_component("tfb3")
       simo.autobuild_model("tfb3",'../inputs/TFB3_8-142.pdb',"A",resolutions=[1,30],resrange=(1,321), missingbeadsize=30,color=0.8,attachbeads=True)
       simo.setup_component_sequence_connectivity("tfb3", resolution=30)
 
 
     if 2 in activated_components:
 
-      simo.add_component_name("rad3")
+      simo.create_component("rad3")
       simo.autobuild_model("rad3",'../inputs/RAD3_14-725.pdb',"A",resolutions=[1,30],resrange=(1,778), missingbeadsize=30,color=150./360,attachbeads=True)
       simo.setup_component_sequence_connectivity("rad3", resolution=30)
 
 
     if 4 in activated_components:
 
-      simo.add_component_name("tfb1")
+      simo.create_component("tfb1")
       simo.autobuild_model("tfb1",'../inputs/TFB1_2-115.pdb',"A",resolutions=[1,30],resrange=(2,642), missingbeadsize=30,color=60./360,attachbeads=True)
       simo.setup_component_sequence_connectivity("tfb1", resolution=30)
 
-      simo.add_component_name("tfb2")
+      simo.create_component("tfb2")
       #simo.autobuild_model("tfb2",'../inputs/TFB2_1-168.pdb',"A",resolutions=[1,30],resrange=(1,170), missingbeadsize=30,color=185./360,attachbeads=True)
       #simo.autobuild_model("tfb2",'../inputs/TFB2_186-417.pdb',"A",resolutions=[1,30],resrange=(171,417), missingbeadsize=30,color=185./360,attachbeads=True)
       simo.autobuild_model("tfb2",'../inputs/TFB2_392-513.pdb',"A",resolutions=[1,30],resrange=(1,513), missingbeadsize=30,color=185./360,attachbeads=True)
       simo.setup_component_sequence_connectivity("tfb2", resolution=30)
 
-      simo.add_component_name("tfb4")
+      simo.create_component("tfb4")
       simo.autobuild_model("tfb4",'../inputs/TFB4_24-250.pdb',"A",resolutions=[1,30],resrange=(1,338), missingbeadsize=30,color=210./360,attachbeads=True)
       simo.setup_component_sequence_connectivity("tfb4", resolution=30)
 
-      simo.add_component_name("tfb5")
+      simo.create_component("tfb5")
       simo.autobuild_model("tfb5",'../inputs/TFB5.pdb',"B",resolutions=[1,30],resrange=(2,72), missingbeadsize=30,color=0.,attachbeads=True)
       simo.setup_component_sequence_connectivity("tfb5", resolution=30)
 
-      simo.add_component_name("ssl1")
+      simo.create_component("ssl1")
       simo.autobuild_model("ssl1",'../inputs/SSL1_123-302.pdb',"A",resolutions=[1,30],resrange=(1,302), missingbeadsize=30,color=285./360,attachbeads=True)
       simo.autobuild_model("ssl1",'../inputs/SSL1_386-455.pdb',"A",resolutions=[1,30],resrange=(303,461), missingbeadsize=30,color=285./360,attachbeads=True)
       simo.setup_component_sequence_connectivity("ssl1", resolution=30)
 
 
     if 1 in activated_components:
-      simo.add_component_name("ssl2")
+      simo.create_component("ssl2")
       # The original modeling ignored the gaps 308-311, 318-322 and 340-344.
       # To reproduce the modeling as closely as possible, force modern PMI
       # to ignore these gaps too:
