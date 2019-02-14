@@ -11,12 +11,12 @@ import IMP.rmf
 import RMF
 
 import topology
-import IMP.pmi.restraints as restraints
-import IMP.pmi.representation as representation
-import IMP.pmi.tools as tools
-import IMP.pmi.samplers as samplers
-import IMP.pmi.output as output
-import IMP.pmi.analysis as analysis
+import IMP.pmi1.restraints as restraints
+import IMP.pmi1.representation as representation
+import IMP.pmi1.tools as tools
+import IMP.pmi1.samplers as samplers
+import IMP.pmi1.output as output
+import IMP.pmi1.analysis as analysis
 
 
 ##simo.draw_hierarchy_composition()

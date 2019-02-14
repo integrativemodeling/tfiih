@@ -11,12 +11,12 @@ import IMP.rmf
 import RMF
 
 import topology
-import IMP.pmi.restraints as restraints
-import IMP.pmi.representation as representation
-import IMP.pmi.tools as tools
-import IMP.pmi.samplers as samplers
-import IMP.pmi.output as output
-import IMP.pmi.analysis as analysis
+import IMP.pmi1.restraints as restraints
+import IMP.pmi1.representation as representation
+import IMP.pmi1.tools as tools
+import IMP.pmi1.samplers as samplers
+import IMP.pmi1.output as output
+import IMP.pmi1.analysis as analysis
 
 #####################################################
 #analyze RMFs
@@ -379,7 +379,7 @@ for z, fil in enumerate(files):
         Coords = {}
         for pr in prot.get_children():
             #parts = IMP.atom.Selection(prot,molecule=pr.get_name()).get_selected_particles()
-            parts = IMP.pmi.tools.get_particles_by_resolution(pr,1.)
+            parts = IMP.pmi1.tools.get_particles_by_resolution(pr,1.)
             coords = np.array([np.array(IMP.core.XYZ(i).get_coordinates()) for i in parts])
             Coords[pr.get_name()] = coords  
         '''

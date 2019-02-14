@@ -1,7 +1,7 @@
 from __future__ import print_function, absolute_import
 import IMP.isd
 import IMP.atom
-import IMP.pmi.tools as tools
+import IMP.pmi1.tools as tools
 
 def get_particles_by_resolution(prot,resolution):
     #this function does not work with the root hierarchy, but
@@ -24,12 +24,12 @@ def get_particles_by_resolution(prot,resolution):
 
         if len(ps)>0:
             for p in ps:
-                resolutions.append(IMP.pmi.Resolution(IMP.pmi.Resolution(p)).get_resolution())
+                resolutions.append(IMP.pmi1.Resolution(IMP.pmi1.Resolution(p)).get_resolution())
             closestres=min(resolutions, key=lambda x:abs(float(x)-float(resolution)))
 
             # now we get the particle
             for p in ps:
-                if closestres==IMP.pmi.Resolution.get_resolution(IMP.pmi.Resolution(p)):
+                if closestres==IMP.pmi1.Resolution.get_resolution(IMP.pmi1.Resolution(p)):
                     if not p in particles:
                         particles.append(p)
         else:
@@ -150,7 +150,7 @@ class GaussianEMRestraint():
         self.label=label
 
     def add_to_model(self):
-        IMP.pmi.tools.add_restraint_to_model(self.m, self.rs)
+        IMP.pmi1.tools.add_restraint_to_model(self.m, self.rs)
 
     def get_particles_to_sample(self):
         ps={}

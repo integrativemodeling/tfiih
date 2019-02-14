@@ -10,12 +10,12 @@ import IMP.rmf
 import RMF
 import restraints
 import topology
-import IMP.pmi.restraints.stereochemistry
-import IMP.pmi.restraints.crosslinking
-import IMP.pmi.representation as representation
-import IMP.pmi.tools as tools
-import IMP.pmi.samplers as samplers
-import IMP.pmi.output as output
+import IMP.pmi1.restraints.stereochemistry
+import IMP.pmi1.restraints.crosslinking
+import IMP.pmi1.representation as representation
+import IMP.pmi1.tools as tools
+import IMP.pmi1.samplers as samplers
+import IMP.pmi1.output as output
 
 run_number = 0
 xlinkAmplitude=17  
@@ -37,12 +37,12 @@ sampleobjects.append(simo)
 #####################################################
 
 #EV restraint
-ev=IMP.pmi.restraints.stereochemistry.ExcludedVolumeSphere(simo, resolution=30)
+ev=IMP.pmi1.restraints.stereochemistry.ExcludedVolumeSphere(simo, resolution=30)
 ev.add_to_model()
 outputobjects.append(ev)
 
 #cross-link restraint
-xl=IMP.pmi.restraints.crosslinking.SigmoidalCrossLinkMS(simo,
+xl=IMP.pmi1.restraints.crosslinking.SigmoidalCrossLinkMS(simo,
                      '../inputs/Ranish_Kornberg_thiih_xlinks_human.txt',
                      inflection=25.0,slope=5.0,amplitude=xlinkAmplitude,
                      linear_slope=0.05,resolution=1)
@@ -125,7 +125,7 @@ for k in range(nrmffiles):
   rmffile="../outputs/models_%d.%d.rmf" % (run_number, k)
   output.init_rmf(rmffile, [prot])
   output.add_restraints_to_rmf(rmffile,[xl])
-  rset = IMP.pmi.tools.get_restraint_set(m)
+  rset = IMP.pmi1.tools.get_restraint_set(m)
 
   for i in range(nframes):
     mc.optimize(ncycl)

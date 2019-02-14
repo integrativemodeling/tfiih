@@ -2,7 +2,7 @@ from __future__ import print_function, absolute_import
 import IMP
 import IMP.algebra
 import IMP.core
-import IMP.pmi.representation as representation
+import IMP.pmi1.representation as representation
 from numpy.random import rand as nrrand
 from numpy import array
 
@@ -74,16 +74,16 @@ def make_topology():
       # The original modeling ignored the gaps 308-311, 318-322 and 340-344.
       # To reproduce the modeling as closely as possible, force modern PMI
       # to ignore these gaps too:
-      old_rg_hier = IMP.pmi.tools.get_residue_gaps_in_hierarchy
+      old_rg_hier = IMP.pmi1.tools.get_residue_gaps_in_hierarchy
       def dummy_rg_hier(hierarchy, start, end):
           # Return only the first two entries (leading gap, the missing
           # residues at the N terminus; plus the pdb range)
           return [[start, 297, 'gap'], [298, end, 'cont']]
       try:
-          IMP.pmi.tools.get_residue_gaps_in_hierarchy = dummy_rg_hier
+          IMP.pmi1.tools.get_residue_gaps_in_hierarchy = dummy_rg_hier
           simo.autobuild_model("ssl2",'../inputs/fit_gtfs_3.pdb',"C",resolutions=[1,30],resrange=(1,538), missingbeadsize=30,color=0.0,attachbeads=True)
       finally:
-          IMP.pmi.tools.get_residue_gaps_in_hierarchy = old_rg_hier
+          IMP.pmi1.tools.get_residue_gaps_in_hierarchy = old_rg_hier
       simo.autobuild_model("ssl2",'../inputs/fit_gtfs_3.pdb',"D",resolutions=[1,30],resrange=(539,843), missingbeadsize=30,color=0.0,attachbeads=True)
       simo.setup_component_sequence_connectivity("ssl2", resolution=30)
 
