@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 from __future__ import print_function, absolute_import
 import IMP
 import IMP.core
@@ -16,13 +17,15 @@ import IMP.pmi1.representation as representation
 import IMP.pmi1.tools as tools
 import IMP.pmi1.samplers as samplers
 import IMP.pmi1.output as output
+import IMP.pmi1.mmcif
+import ihm
 
 run_number = 0 # Change for each independent run
 ncycl=100  #number of montecarlo steps cycles
 outputobjects=[]
 sampleobjects=[]
 
-m, simo = topology.make_topology()
+m, simo, po = topology.make_topology()
 
 prot=simo.prot
 outputobjects.append(simo)
@@ -115,6 +118,8 @@ output.init_stat2("../outputs/stat_%d.dat" % run_number,
 #####################################################
 nrmffiles=1
 nframes=20 if '--test' in sys.argv else 20000
+if '--dry-run' in sys.argv:
+    nframes = 0
 bestscore, step = 1000000000000000, 0
 for k in range(nrmffiles):
   rmffile="../outputs/models_%d.%d.rmf" % (run_number, k)
@@ -138,5 +143,5 @@ for k in range(nrmffiles):
       step += 1
   output.close_rmf(rmffile)
 
-
-
+if '--mmcif' in sys.argv:
+    po.flush()

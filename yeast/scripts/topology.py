@@ -5,6 +5,9 @@ import IMP.core
 import IMP.pmi1.representation as representation
 from numpy.random import rand as nrrand
 from numpy import array
+import ihm
+import IMP.pmi1.mmcif
+import sys
 
 activated_components=[1,2,3,4]
 
@@ -19,7 +22,15 @@ def make_topology():
     m=IMP.Model()
     simo=representation.Representation(m, upperharmonic=False, disorderedlength=True)
 
-
+    if '--mmcif' in sys.argv:
+        # Record the modeling protocol to an mmCIF file
+        po = IMP.pmi1.mmcif.ProtocolOutput(open('yeast-tfiih.cif', 'w'))
+        simo.add_protocol_output(po)
+        po.system.title = ('Architecture of the yeast general transcription '
+                           'and DNA repair factor TFIIH')
+    else:
+        po = None
+    simo.dry_run = '--dry-run' in sys.argv
 
     if 1 in activated_components:
       
@@ -157,4 +168,4 @@ def make_topology():
 
     #re-orient initial positions
     shuffle_configuration_no_translation(simo)
-    return m, simo
+    return m, simo, po
