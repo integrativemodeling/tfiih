@@ -20,19 +20,23 @@ def make_topology():
     # --- Get atomic models available
     # Sub component 1: Kinase 
     simo.create_component("ccl1")
+    simo.add_component_sequence("ccl1", "../inputs/human_tfiih.fasta")
     simo.autobuild_model("ccl1",'../inputs/KIN28_CCL1.pdb',"B",resolutions=[1,30],resrange=(1,323),missingbeadsize=30,color=60./360,attachbeads=True)
     simo.setup_component_sequence_connectivity("ccl1", resolution=30)
 
     simo.create_component("kin28")
+    simo.add_component_sequence("kin28", "../inputs/human_tfiih.fasta")
     simo.autobuild_model("kin28",'../inputs/KIN28_CCL1.pdb',"A",resolutions=[1,30],resrange=(1,346), missingbeadsize=30,color=185./360,attachbeads=True)
     simo.setup_component_sequence_connectivity("kin28", resolution=30)
 
     simo.create_component("tfb3")
+    simo.add_component_sequence("tfb3", "../inputs/human_tfiih.fasta")
     simo.autobuild_model("tfb3",'../inputs/TFB3.pdb',"A",resolutions=[1,30],resrange=(1,309), missingbeadsize=30,color=285./360,attachbeads=True)
     simo.setup_component_sequence_connectivity("tfb3", resolution=30)
 
     # Sub component 2: Rad3
     simo.create_component("rad3")
+    simo.add_component_sequence("rad3", "../inputs/human_tfiih.fasta")
     # The original modeling ignored gaps in this PDB.
     # To reproduce the modeling as closely as possible, force modern PMI
     # to ignore these gaps too:
@@ -50,6 +54,7 @@ def make_topology():
 
     # Sub component 3: Ssl2 and Tfiicore
     simo.create_component("ssl2")
+    simo.add_component_sequence("ssl2", "../inputs/human_tfiih.fasta")
     # The original modeling ignored gaps in this PDB.
     # To reproduce the modeling as closely as possible, force modern PMI
     # to ignore these gaps too:
@@ -65,14 +70,17 @@ def make_topology():
     simo.setup_component_sequence_connectivity("ssl2", resolution=30)
       
     simo.create_component("tfb1")
+    simo.add_component_sequence("tfb1", "../inputs/human_tfiih.fasta")
     simo.autobuild_model("tfb1",'../inputs/TFB1.pdb'," ",resolutions=[1,30],resrange=(1,548), missingbeadsize=30,color=1.0,attachbeads=True)
     simo.setup_component_sequence_connectivity("tfb1", resolution=30)
 
     simo.create_component("tfb2")
+    simo.add_component_sequence("tfb2", "../inputs/human_tfiih.fasta")
     simo.autobuild_model("tfb2",'../inputs/TFB2_TFB5.pdb',"A",resolutions=[1,30],resrange=(1,462), missingbeadsize=30,color=0.9,attachbeads=True)
     simo.setup_component_sequence_connectivity("tfb2", resolution=30)
 
     simo.create_component("tfb4")
+    simo.add_component_sequence("tfb4", "../inputs/human_tfiih.fasta")
     # The original modeling ignored gaps in this PDB.
     # To reproduce the modeling as closely as possible, force modern PMI
     # to ignore these gaps too:
@@ -88,6 +96,7 @@ def make_topology():
     simo.setup_component_sequence_connectivity("tfb4", resolution=30)
 
     simo.create_component("tfb5")
+    simo.add_component_sequence("tfb5", "../inputs/human_tfiih.fasta")
     # The original modeling ignored gaps in this PDB.
     # To reproduce the modeling as closely as possible, force modern PMI
     # to ignore these gaps too:
@@ -103,6 +112,7 @@ def make_topology():
     simo.setup_component_sequence_connectivity("tfb5", resolution=30)
 
     simo.create_component("ssl1")
+    simo.add_component_sequence("ssl1", "../inputs/human_tfiih.fasta")
     simo.autobuild_model("ssl1",'../inputs/SSL1.pdb'," ",resolutions=[1,30],resrange=(1,395), missingbeadsize=30,color=0.6,attachbeads=True)
     simo.setup_component_sequence_connectivity("ssl1", resolution=30)
 
