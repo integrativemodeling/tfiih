@@ -5,6 +5,9 @@ import IMP.core
 import IMP.pmi1.representation as representation
 from numpy.random import rand as nrrand
 from numpy import array
+import ihm
+import IMP.pmi1.mmcif
+import sys
 
 def make_topology():
     rbmaxtrans=0.7
@@ -16,6 +19,16 @@ def make_topology():
 
     m=IMP.Model()
     simo=representation.Representation(m, upperharmonic=False, disorderedlength=True)
+
+    if '--mmcif' in sys.argv:
+        # Record the modeling protocol to an mmCIF file
+        po = IMP.pmi1.mmcif.ProtocolOutput(open('human-tfiih.cif', 'w'))
+        simo.add_protocol_output(po)
+        po.system.title = ('Architecture of the human general transcription '
+                           'and DNA repair factor TFIIH')
+    else:
+        po = None
+    simo.dry_run = '--dry-run' in sys.argv
 
     # --- Get atomic models available
     # Sub component 1: Kinase 
@@ -169,4 +182,4 @@ def make_topology():
 
     #--- re-orient initial orientation only
     shuffle_configuration_no_translation(simo)
-    return m, simo
+    return m, simo, po
