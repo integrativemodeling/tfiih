@@ -28,6 +28,8 @@ def make_topology():
         simo.add_protocol_output(po)
         po.system.title = ('Architecture of the yeast general transcription '
                            'and DNA repair factor TFIIH')
+        # Add publication
+        po.system.citations.append(ihm.Citation.from_pubmed_id(26340423))
     else:
         po = None
     simo.dry_run = '--dry-run' in sys.argv
