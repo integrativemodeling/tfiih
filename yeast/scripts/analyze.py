@@ -30,7 +30,7 @@ import glob
 # Get stats files from all independent runs
 files = glob.glob('../outputs/stat*.dat')
 
-m, simo = topology.make_topology()
+m, simo, po = topology.make_topology()
 prot = simo.prot
 
 """

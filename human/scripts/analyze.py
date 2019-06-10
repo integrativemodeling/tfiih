@@ -31,7 +31,7 @@ import glob
 allStatFiles = glob.glob('../outputs/stat*.dat')
 run_number = 1
 
-m, simo = topology.make_topology()
+m, simo, po = topology.make_topology()
 prot = simo.prot
 
 print(allStatFiles)
