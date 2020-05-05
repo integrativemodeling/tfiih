@@ -1,6 +1,6 @@
 title: TFIIH complex
 pmid: 26340423
-tags: [chemical crosslinks, EM density map, PMI]
+tags: [chemical crosslinks, EM density map, PMI1]
 prereqs: [python/scikit, python/matplotlib]
 test:
     runtime: 24h
