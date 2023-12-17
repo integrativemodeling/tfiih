@@ -146,7 +146,10 @@ print(S, len(S))
 import matplotlib
 matplotlib.use('Agg')
 import pylab as pl
-pl.hist(S,bins=100,normed=0,linewidth=0)
+try:
+    pl.hist(S,bins=100,density=0,linewidth=0)
+except AttributeError:
+    pl.hist(S,bins=100,normed=0,linewidth=0)
 pl.savefig('scores.pdf')
 
 #####################################################
